@@ -2,17 +2,11 @@ package com.timeanddate.services.tests;
 
 import static org.junit.Assert.*;
 
-import java.io.IOException;
-import java.security.SignatureException;
 import java.util.List;
 
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.junit.Test;
-import org.w3c.dom.DOMException;
-import org.xml.sax.SAXException;
-
 import com.timeanddate.services.PlacesService;
+import com.timeanddate.services.common.AuthenticationException;
 import com.timeanddate.services.common.ServerSideException;
 import com.timeanddate.services.dataTypes.places.Coordinates;
 import com.timeanddate.services.dataTypes.places.Place;
@@ -20,10 +14,7 @@ import com.timeanddate.services.dataTypes.places.Place;
 public class PlacesServiceTests {
 
 	@Test
-	public void Calling_PlacesServices_Should_ReturnListOfPlaces()
-			throws SignatureException, DOMException,
-			ParserConfigurationException, SAXException, IOException,
-			ServerSideException {
+	public void Calling_PlacesServices_Should_ReturnListOfPlaces() throws AuthenticationException, ServerSideException {
 		// Arrange
 
 		// Act
@@ -50,10 +41,7 @@ public class PlacesServiceTests {
 	}
 
 	@Test
-	public void Calling_PlacesServices_WithoutGeo_Should_ReturnListOfPlacesWithoutGeo()
-			throws SignatureException, DOMException,
-			ParserConfigurationException, SAXException, IOException,
-			ServerSideException {
+	public void Calling_PlacesServices_WithoutGeo_Should_ReturnListOfPlacesWithoutGeo() throws AuthenticationException, ServerSideException {
 		// Arrange
 
 		// Act

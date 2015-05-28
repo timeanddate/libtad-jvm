@@ -14,6 +14,8 @@ import org.junit.Test;
 
 import com.timeanddate.services.ConvertTimeService;
 import com.timeanddate.services.ConvertedTimes;
+import com.timeanddate.services.common.AuthenticationException;
+import com.timeanddate.services.common.ServerSideException;
 import com.timeanddate.services.dataTypes.places.Coordinates;
 import com.timeanddate.services.dataTypes.places.Location;
 import com.timeanddate.services.dataTypes.places.LocationId;
@@ -67,8 +69,8 @@ public class ConvertTimeServiceTests {
 	}
 
 	@Test
-	public void Calling_ConvertTimeService_WithNoId_And_WithDateTime_Should_ReturnCorrectConvertedTime()
-			throws Exception {
+	public void Calling_ConvertTimeService_WithNoId_And_WithDateTime_Should_ReturnCorrectConvertedTime() 
+		throws AuthenticationException, IllegalArgumentException, ServerSideException {
 		// Arrange
 
 		// Act
@@ -85,8 +87,8 @@ public class ConvertTimeServiceTests {
 	}
 
 	@Test
-	public void Calling_ConvertTimeService_WithOneToId_And_WithDateTime_Should_ReturnCorrectConvertedTime()
-			throws Exception {
+	public void Calling_ConvertTimeService_WithOneToId_And_WithDateTime_Should_ReturnCorrectConvertedTime() 
+		throws AuthenticationException, IllegalArgumentException, ServerSideException {
 		// Arrange
 		List<LocationId> toId = new ArrayList<LocationId>();
 		toId.add(toUsId);
@@ -111,8 +113,8 @@ public class ConvertTimeServiceTests {
 	}
 
 	@Test
-	public void Calling_ConvertTimeService_WithMultipleToIds_And_WithDateTime_Should_ReturnCorrectConvertedTime()
-			throws Exception {
+	public void Calling_ConvertTimeService_WithMultipleToIds_And_WithDateTime_Should_ReturnCorrectConvertedTime() 
+		throws AuthenticationException, IllegalArgumentException, ServerSideException {
 		// Arrange
 		List<LocationId> toId = new ArrayList<LocationId>();
 		toId.add(toUsId);
@@ -143,8 +145,8 @@ public class ConvertTimeServiceTests {
 	}
 
 	@Test
-	public void Calling_ConvertTimeService_WithMultipleToIds_And_WithISO_Should_ReturnCorrectConvertedTime()
-			throws Exception {
+	public void Calling_ConvertTimeService_WithMultipleToIds_And_WithISO_Should_ReturnCorrectConvertedTime() 
+		throws AuthenticationException, IllegalArgumentException, ServerSideException {
 		// Arrange
 		List<LocationId> toId = new ArrayList<LocationId>();
 		toId.add(toUsId);
@@ -175,8 +177,8 @@ public class ConvertTimeServiceTests {
 	}
 
 	@Test
-	public void Calling_ConvertTimeService_WithNoId_And_WithISO_Should_ReturnCorrectConvertedTime()
-			throws Exception {
+	public void Calling_ConvertTimeService_WithNoId_And_WithISO_Should_ReturnCorrectConvertedTime() 
+		throws AuthenticationException, IllegalArgumentException, ServerSideException {
 		// Arrange
 
 		// Act
@@ -194,8 +196,8 @@ public class ConvertTimeServiceTests {
 	}
 
 	@Test
-	public void Calling_ConvertTimeService_WithOneToId_And_WithISO_Should_ReturnCorrectConvertedTime()
-			throws Exception {
+	public void Calling_ConvertTimeService_WithOneToId_And_WithISO_Should_ReturnCorrectConvertedTime() 
+		throws AuthenticationException, IllegalArgumentException, ServerSideException {
 		// Arrange
 		List<LocationId> toId = new ArrayList<LocationId>();
 		toId.add(toUsId);
@@ -220,8 +222,8 @@ public class ConvertTimeServiceTests {
 	}
 
 	@Test
-	public void Calling_ConvertTimeService_WithoutTimeChanges_Should_NotReturnTimeChanges()
-			throws Exception {
+	public void Calling_ConvertTimeService_WithoutTimeChanges_Should_NotReturnTimeChanges() 
+		throws AuthenticationException, IllegalArgumentException, ServerSideException {
 		// Arrange
 		List<LocationId> toId = new ArrayList<LocationId>();
 		toId.add(toUsId);
@@ -248,8 +250,8 @@ public class ConvertTimeServiceTests {
 	}
 
 	@Test
-	public void Calling_ConvertTimeService_WithTimeChanges_Should_ReturnTimeChanges()
-			throws Exception {
+	public void Calling_ConvertTimeService_WithTimeChanges_Should_ReturnTimeChanges() 
+		throws AuthenticationException, IllegalArgumentException, ServerSideException {
 		// Arrange
 		List<LocationId> toId = new ArrayList<LocationId>();
 		toId.add(toUsId);
@@ -276,8 +278,8 @@ public class ConvertTimeServiceTests {
 	}
 
 	@Test
-	public void Calling_ConvertTimeService_WithoutTimezone_Should_NotReturnTZInformation()
-			throws Exception {
+	public void Calling_ConvertTimeService_WithoutTimezone_Should_NotReturnTZInformation() 
+		throws AuthenticationException, IllegalArgumentException, ServerSideException {
 		// Arrange
 		List<LocationId> toId = new ArrayList<LocationId>();
 		toId.add(toUsId);
@@ -304,8 +306,8 @@ public class ConvertTimeServiceTests {
 	}
 
 	@Test
-	public void Calling_ConvertTimeService_WithTimezone_Should_ReturnTZInformation()
-			throws Exception {
+	public void Calling_ConvertTimeService_WithTimezone_Should_ReturnTZInformation() 
+		throws AuthenticationException, IllegalArgumentException, ServerSideException {
 		// Arrange
 		List<LocationId> toId = new ArrayList<LocationId>();
 		toId.add(toUsId);
@@ -332,8 +334,8 @@ public class ConvertTimeServiceTests {
 	}
 
 	@Test
-	public void Calling_ConvertTimeService_WithRadius_Should_ReturnCorrectLocation()
-			throws Exception {
+	public void Calling_ConvertTimeService_WithRadius_Should_ReturnCorrectLocation() 
+		throws AuthenticationException, IllegalArgumentException, ServerSideException {
 		// Arrange
 		List<LocationId> toId = new ArrayList<LocationId>();
 		toId.add(toUsId);

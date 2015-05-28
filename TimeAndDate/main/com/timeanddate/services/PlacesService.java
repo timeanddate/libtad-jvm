@@ -3,9 +3,9 @@ package com.timeanddate.services;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.security.SignatureException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,13 +15,13 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import com.timeanddate.services.common.AuthenticationException;
 import com.timeanddate.services.common.ServerSideException;
 import com.timeanddate.services.common.StringUtils;
 import com.timeanddate.services.common.UriUtils;
@@ -52,11 +52,11 @@ public class PlacesService extends BaseService {
 	 *            Access key.
 	 * @param secretKey
 	 *            Secret key.
-	 * @throws SignatureException
-	 * @throws UnsupportedEncodingException
+	 * @throws AuthenticationException 
+	 * 			  Encryption of the authentication failed 
 	 */
 	public PlacesService(String accessKey, String secretKey)
-			throws SignatureException, UnsupportedEncodingException {
+			throws AuthenticationException {
 		super(accessKey, secretKey, "places");
 		_includeCoordinates = true;
 	}
@@ -65,22 +65,24 @@ public class PlacesService extends BaseService {
 	 * Gets list of supported places
 	 * 
 	 * @return The places
-	 * @throws DOMException
-	 * @throws ParserConfigurationException
-	 * @throws SAXException
-	 * @throws IOException
-	 * @throws ServerSideException
+	 * @throws ServerSideException 
+	 * 			  The server produced an error message
 	 */
-	public List<Place> getPlaces() throws DOMException,
-			ParserConfigurationException, SAXException, IOException,
-			ServerSideException {
+	public List<Place> getPlaces() throws ServerSideException {
 		Map<String, String> arguments = getArguments();
-		String query = UriUtils.BuildUriString(arguments);
+		String result = new String();
+		
+		try {
+			String query = UriUtils.BuildUriString(arguments);
+			URL uri = new URL(Constants.EntryPoint + ServiceName + query);
+			WebClient client = new WebClient();
 
-		URL uri = new URL(Constants.EntryPoint + ServiceName + query);
-		WebClient client = new WebClient();
+			result = client.downloadString(uri);
+		} catch (UnsupportedEncodingException | MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-		String result = client.downloadString(uri);
 		XmlUtils.checkForErrors(result);
 		return fromXml(result);
 	}
@@ -106,20 +108,26 @@ public class PlacesService extends BaseService {
 		return args;
 	}
 
-	private static List<Place> fromXml(String result)
-			throws ParserConfigurationException, SAXException, IOException {
+	private static List<Place> fromXml(String result) {
 		ArrayList<Place> list = new ArrayList<Place>();
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder builder = factory.newDocumentBuilder();
-		ByteArrayInputStream stream = new ByteArrayInputStream(
-				result.getBytes(StandardCharsets.UTF_8));
-		Document document = builder.parse(stream);
-		Element root = document.getDocumentElement();
-		NodeList nodes = root.getElementsByTagName("place");
+		
+		try {
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			ByteArrayInputStream stream = new ByteArrayInputStream(
+					result.getBytes(StandardCharsets.UTF_8));
+			Document document = builder.parse(stream);
+			Element root = document.getDocumentElement();
+			NodeList nodes = root.getElementsByTagName("place");
 
-		for (Node node : XmlUtils.asList(nodes)) {
-			list.add(Place.fromNode(node));
+			for (Node node : XmlUtils.asList(nodes)) {
+				list.add(Place.fromNode(node));
+			}
+		} catch (ParserConfigurationException | SAXException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+
 
 		return list;
 	}

@@ -1,5 +1,10 @@
 package com.timeanddate.services.common;
 
+/**
+ * 
+ * @author Cato Auestad <cato@timeanddate.com>
+ *
+ */
 public class MalformedXMLException extends Exception {
 
 	public MalformedXMLException(String msg) {

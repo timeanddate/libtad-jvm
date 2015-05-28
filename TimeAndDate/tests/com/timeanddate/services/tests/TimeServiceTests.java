@@ -8,8 +8,11 @@ import java.util.List;
 import org.junit.Test;
 
 import com.timeanddate.services.TimeService;
+import com.timeanddate.services.common.AuthenticationException;
 import com.timeanddate.services.common.LocalTimeDoesNotExistException;
+import com.timeanddate.services.common.MissingTimeChangesException;
 import com.timeanddate.services.common.QueriedDateOutOfRangeException;
+import com.timeanddate.services.common.ServerSideException;
 import com.timeanddate.services.common.TimeSpan;
 import com.timeanddate.services.dataTypes.astro.Astronomy;
 import com.timeanddate.services.dataTypes.astro.AstronomyEvent;
@@ -23,8 +26,8 @@ import com.timeanddate.services.dataTypes.time.TimeChange;
 
 public class TimeServiceTests {
 	@Test
-	public void calling_TimeService_WithNumericId_Should_ReturnCorrectLocation()
-			throws Exception {
+	public void calling_TimeService_WithNumericId_Should_ReturnCorrectLocation() 
+		throws AuthenticationException, ServerSideException {
 		// Arrange
 		int placeId = 179;
 
@@ -40,8 +43,8 @@ public class TimeServiceTests {
 	}
 
 	@Test
-	public void calling_TimeService_WithTextualId_Should_ReturnCorrectLocation()
-			throws Exception {
+	public void calling_TimeService_WithTextualId_Should_ReturnCorrectLocation() 
+		throws AuthenticationException, ServerSideException {
 		// Arrange
 		LocationId locationId = new LocationId("norway/oslo");
 		String placeId = "187";
@@ -57,8 +60,8 @@ public class TimeServiceTests {
 	}
 
 	@Test
-	public void calling_TimeService_WithCoordinates_Should_ReturnCorrectLocation()
-			throws Exception {
+	public void calling_TimeService_WithCoordinates_Should_ReturnCorrectLocation() 
+		throws AuthenticationException, ServerSideException {
 		// Arrange
 		Coordinates osloCoords = new Coordinates(59.914d, 10.752d);
 		LocationId locationId = new LocationId(osloCoords);
@@ -76,8 +79,8 @@ public class TimeServiceTests {
 	}
 
 	@Test
-	public void calling_TimeService_WithTextualId_Should_ReturnCorrectGeo()
-			throws Exception {
+	public void calling_TimeService_WithTextualId_Should_ReturnCorrectGeo() 
+		throws AuthenticationException, ServerSideException {
 		// Arrange
 		String expectedCountry = "Norway";
 		String expectedPlace = "Oslo";
@@ -101,8 +104,8 @@ public class TimeServiceTests {
 	}
 
 	@Test
-	public void calling_TimeService_WithNumericId_Should_ReturnCorrectGeo()
-			throws Exception {
+	public void calling_TimeService_WithNumericId_Should_ReturnCorrectGeo() 
+		throws AuthenticationException, ServerSideException {
 		// Arrange
 		String expectedCountry = "Norway";
 		String expectedPlace = "Oslo";
@@ -124,8 +127,8 @@ public class TimeServiceTests {
 	}
 
 	@Test
-	public void calling_TimeService_WithNumericId_Should_ReturnCorrectTime()
-			throws Exception {
+	public void calling_TimeService_WithNumericId_Should_ReturnCorrectTime() 
+		throws AuthenticationException, ServerSideException {
 		// Arrange
 		int placeId = 187;
 		TADDateTime now = new TADDateTime(Calendar.getInstance().get(
@@ -143,8 +146,8 @@ public class TimeServiceTests {
 	}
 
 	@Test
-	public void calling_TimeService_WithTextualId_Should_ReturnCorrectTime()
-			throws Exception {
+	public void calling_TimeService_WithTextualId_Should_ReturnCorrectTime() 
+		throws AuthenticationException, ServerSideException {
 		// Arrange
 		String placeName = "norway/oslo";
 		TADDateTime now = new TADDateTime(Calendar.getInstance().get(
@@ -162,8 +165,8 @@ public class TimeServiceTests {
 	}
 
 	@Test
-	public void calling_TimeService_WithCoordinates_Should_ReturnCorrectTime()
-			throws Exception {
+	public void calling_TimeService_WithCoordinates_Should_ReturnCorrectTime() 
+		throws AuthenticationException, ServerSideException {
 		// Arrange
 		Coordinates osloCoords = new Coordinates(59.914d, 10.752d);
 		String expectedId = String.format("+%1$,.3f+%2$,.3f",
@@ -186,8 +189,8 @@ public class TimeServiceTests {
 	}
 
 	@Test
-	public void calling_TimeService_WithNumericId_Should_ReturnCorrectTimezone()
-			throws Exception {
+	public void calling_TimeService_WithNumericId_Should_ReturnCorrectTimezone() 
+		throws AuthenticationException, ServerSideException {
 		// Arrange
 		int placeId = 187;
 		String expectedTimezoneAbbr1 = "CEST";
@@ -222,8 +225,8 @@ public class TimeServiceTests {
 	}
 
 	@Test
-	public void calling_TimeService_WithTextualId_Should_ReturnCorrectTimezone()
-			throws Exception {
+	public void calling_TimeService_WithTextualId_Should_ReturnCorrectTimezone() 
+		throws AuthenticationException, ServerSideException {
 		// Arrange
 		String placeName = "norway/oslo";
 		String expectedTimezoneAbbr = "CEST";
@@ -257,8 +260,8 @@ public class TimeServiceTests {
 	}
 
 	@Test
-	public void calling_TimeService_WithCoordinates_Should_ReturnCorrectTimezone()
-			throws Exception {
+	public void calling_TimeService_WithCoordinates_Should_ReturnCorrectTimezone() 
+		throws AuthenticationException, ServerSideException {
 		// Arrange
 		Coordinates osloCoords = new Coordinates(59.914d, 10.752d);
 		String expectedTimezoneAbbr = "CEST";
@@ -292,8 +295,8 @@ public class TimeServiceTests {
 	}
 
 	@Test
-	public void calling_TimeService_WithNumericId_Should_ReturnCorrectTimeChanges()
-			throws Exception {
+	public void calling_TimeService_WithNumericId_Should_ReturnCorrectTimeChanges() 
+		throws AuthenticationException, ServerSideException {
 		// Arrange
 		int placeId = 187;
 		int expectedFirstNewOffset = 7200;
@@ -318,8 +321,8 @@ public class TimeServiceTests {
 	}
 
 	@Test
-	public void calling_TimeService_WithTextualId_Should_ReturnCorrectTimeChanges()
-			throws Exception {
+	public void calling_TimeService_WithTextualId_Should_ReturnCorrectTimeChanges() 
+		throws AuthenticationException, ServerSideException {
 		// Arrange
 		String placeName = "norway/oslo";
 		int expectedFirstNewOffset = 7200;
@@ -344,8 +347,8 @@ public class TimeServiceTests {
 	}
 
 	@Test
-	public void calling_TimeService_WithCoordinates_Should_ReturnCorrectTimeChanges()
-			throws Exception {
+	public void calling_TimeService_WithCoordinates_Should_ReturnCorrectTimeChanges() 
+		throws AuthenticationException, ServerSideException {
 		// Arrange
 		Coordinates osloCoords = new Coordinates(59.914d, 10.752d);
 		int expectedFirstNewOffset = 7200;
@@ -373,8 +376,8 @@ public class TimeServiceTests {
 	// This test checks on sunset, but the check criteria can have changed from
 	// day to day
 	// TODO to find a way around this
-	public void Calling_TimeService_WithNumericId_Should_ReturnCorrectAstronomy()
-			throws Exception {
+	public void Calling_TimeService_WithNumericId_Should_ReturnCorrectAstronomy() 
+		throws AuthenticationException, ServerSideException {
 		// Arrange
 		int placeId = 187;
 		AstronomyObjectType expectedObjectName = AstronomyObjectType.Sun;
@@ -406,8 +409,8 @@ public class TimeServiceTests {
 	// This test checks on sunset, but the check criteria can have changed from
 	// day to day
 	// TODO to find a way around this
-	public void Calling_TimeService_WithTextualId_Should_ReturnCorrectAstronomy()
-			throws Exception {
+	public void Calling_TimeService_WithTextualId_Should_ReturnCorrectAstronomy() 
+		throws AuthenticationException, ServerSideException {
 		// Arrange
 		String placeName = "norway/oslo";
 		AstronomyObjectType expectedObjectName = AstronomyObjectType.Sun;
@@ -439,8 +442,8 @@ public class TimeServiceTests {
 	// This test checks on sunset, but the check criteria can have changed from
 	// day to day
 	// TODO to find a way around this
-	public void Calling_TimeService_WithCoordinates_Should_ReturnCorrectAstronomy()
-			throws Exception {
+	public void Calling_TimeService_WithCoordinates_Should_ReturnCorrectAstronomy() 
+		throws AuthenticationException, ServerSideException {
 		// Arrange
 		Coordinates osloCoords = new Coordinates(59.914d, 10.752d);
 		AstronomyObjectType expectedObjectName = AstronomyObjectType.Sun;
@@ -469,8 +472,9 @@ public class TimeServiceTests {
 	}
 
 	@Test(expected = LocalTimeDoesNotExistException.class)
-	public void calling_TimeService_And_GettingUTCOffset_WithNonExistingLocalTime_Should_ThrowException()
-			throws Exception {
+	public void calling_TimeService_And_GettingUTCOffset_WithNonExistingLocalTime_Should_ThrowException() 
+		throws AuthenticationException, ServerSideException, MissingTimeChangesException, 
+		QueriedDateOutOfRangeException, LocalTimeDoesNotExistException {
 		// Arrange
 		int placeId = 187;
 		TADDateTime localTime = new TADDateTime(2015, 3, 29, 2, 30, 0);
@@ -487,8 +491,9 @@ public class TimeServiceTests {
 	}
 
 	@Test(expected = QueriedDateOutOfRangeException.class)
-	public void calling_TimeService_And_GettingUTCOffset_WithWrongYear_Should_ThrowException()
-			throws Exception {
+	public void calling_TimeService_And_GettingUTCOffset_WithWrongYear_Should_ThrowException() 
+		throws AuthenticationException, ServerSideException, MissingTimeChangesException, 
+		QueriedDateOutOfRangeException, LocalTimeDoesNotExistException {
 		// Arrange
 		int placeId = 187;
 		TADDateTime localTime = new TADDateTime(2014, 3, 29, 2, 30, 0);
@@ -505,8 +510,9 @@ public class TimeServiceTests {
 	}
 
 	@Test
-	public void calling_TimeService_And_GettingUTCOffset_Should_ReturnCorrectOffset()
-			throws Exception {
+	public void calling_TimeService_And_GettingUTCOffset_Should_ReturnCorrectOffset() 
+		throws AuthenticationException, ServerSideException, MissingTimeChangesException, 
+		QueriedDateOutOfRangeException, LocalTimeDoesNotExistException {
 		// Arrange
 		int placeId = 187;
 		TADDateTime localWinterTime = new TADDateTime(2015, 2, 15, 2, 30, 0);
@@ -536,8 +542,9 @@ public class TimeServiceTests {
 	}
 
 	@Test
-	public void calling_TimeService_And_GettingUTCOffset_WithEdgeCases_Should_ReturnCorrectOffset()
-			throws Exception {
+	public void calling_TimeService_And_GettingUTCOffset_WithEdgeCases_Should_ReturnCorrectOffset() 
+		throws AuthenticationException, ServerSideException, MissingTimeChangesException, 
+		QueriedDateOutOfRangeException, LocalTimeDoesNotExistException {
 		// Arrange
 		String placeId = "usa/anchorage";
 		TADDateTime beforeDstStart = new TADDateTime(2015, 3, 8, 1, 0, 0);

@@ -2,18 +2,13 @@ package com.timeanddate.services.tests;
 
 import static org.junit.Assert.*;
 
-import java.io.IOException;
-import java.security.SignatureException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.junit.Test;
-import org.w3c.dom.DOMException;
-import org.xml.sax.SAXException;
 
 import com.timeanddate.services.DSTService;
+import com.timeanddate.services.common.AuthenticationException;
 import com.timeanddate.services.common.ServerSideException;
 import com.timeanddate.services.dataTypes.dst.DST;
 import com.timeanddate.services.dataTypes.dst.DSTSpecialType;
@@ -21,12 +16,10 @@ import com.timeanddate.services.dataTypes.dst.DSTSpecialType;
 public class DSTServiceTests {
 
 	@Test
-	public void Calling_DstService_Should_ReturnAllDst()
-			throws SignatureException, DOMException,
-			ParserConfigurationException, SAXException, IOException,
-			ServerSideException {
+	public void Calling_DstService_Should_ReturnAllDst() 
+			throws AuthenticationException, ServerSideException {
 		// Arrage
-		int expectedReturnedCount = 137;
+		int expectedReturnedCount = 138;
 
 		// Act
 		DSTService service = new DSTService(
@@ -41,13 +34,11 @@ public class DSTServiceTests {
 	}
 
 	@Test
-	public void Calling_DstService_WithYear_Should_ReturnAllDst()
-			throws SignatureException, DOMException,
-			ParserConfigurationException, SAXException, IOException,
-			ServerSideException {
+	public void Calling_DstService_WithYear_Should_ReturnAllDst() 
+			throws AuthenticationException, ServerSideException {
 		// Arrage
 		int year = 2014;
-		int expectedReturnedCount = 137;
+		int expectedReturnedCount = 138;
 
 		// Act
 		DSTService service = new DSTService(
@@ -62,10 +53,8 @@ public class DSTServiceTests {
 	}
 
 	@Test
-	public void Calling_DstService_WithCountry_Should_ReturnAllDst()
-			throws SignatureException, DOMException,
-			ParserConfigurationException, SAXException, IOException,
-			ServerSideException {
+	public void Calling_DstService_WithCountry_Should_ReturnAllDst() 
+			throws AuthenticationException, ServerSideException {
 		// Arrage
 		String countryCode = "no";
 		String country = "Norway";
@@ -85,10 +74,8 @@ public class DSTServiceTests {
 	}
 
 	@Test
-	public void Calling_DstService_WithCountry_And_WithYear_Should_ReturnAllDst()
-			throws SignatureException, DOMException,
-			ParserConfigurationException, SAXException, IOException,
-			ServerSideException {
+	public void Calling_DstService_WithCountry_And_WithYear_Should_ReturnAllDst() 
+			throws AuthenticationException, ServerSideException {
 		// Arrage
 		String countryCode = "no";
 		int year = 2014;
@@ -106,10 +93,8 @@ public class DSTServiceTests {
 	}
 
 	@Test
-	public void Calling_DstService_WithoutPlacesForEveryCountry_Should_ReturnAllDstWithoutPlaces()
-			throws SignatureException, DOMException,
-			ParserConfigurationException, SAXException, IOException,
-			ServerSideException {
+	public void Calling_DstService_WithoutPlacesForEveryCountry_Should_ReturnAllDstWithoutPlaces() 
+			throws AuthenticationException, ServerSideException {
 		// Arrage
 		int year = 2014;
 
@@ -131,10 +116,8 @@ public class DSTServiceTests {
 	}
 
 	@Test
-	public void Calling_DstService_WithPlacesForEveryCountry_Should_ReturnAnyDstWithPlaces()
-			throws SignatureException, DOMException,
-			ParserConfigurationException, SAXException, IOException,
-			ServerSideException {
+	public void Calling_DstService_WithPlacesForEveryCountry_Should_ReturnAnyDstWithPlaces() 
+			throws AuthenticationException, ServerSideException {
 		// Arrage
 		int year = 2014;
 
@@ -154,10 +137,8 @@ public class DSTServiceTests {
 	}
 
 	@Test
-	public void Calling_DstService_WithoutTimeChanges_Should_NotReturnAnyTimeChanges()
-			throws SignatureException, DOMException,
-			ParserConfigurationException, SAXException, IOException,
-			ServerSideException {
+	public void Calling_DstService_WithoutTimeChanges_Should_NotReturnAnyTimeChanges() 
+			throws AuthenticationException, ServerSideException {
 		// Arrage
 		int year = 2014;
 
@@ -178,9 +159,8 @@ public class DSTServiceTests {
 	}
 
 	@Test
-	public void Calling_DstService_WithTimeChanges_Should_ReturnAnyTimeChanges()
-			throws DOMException, ParserConfigurationException, SAXException,
-			IOException, ServerSideException, SignatureException {
+	public void Calling_DstService_WithTimeChanges_Should_ReturnAnyTimeChanges() 
+			throws AuthenticationException, ServerSideException {
 		// Arrage
 		int year = 2014;
 		boolean timeChangesExist = false;
@@ -204,10 +184,8 @@ public class DSTServiceTests {
 	}
 
 	@Test
-	public void Calling_DstService_WithOnlyDstCountries_Should_ReturnOnlyDstCountries()
-			throws SignatureException, DOMException,
-			ParserConfigurationException, SAXException, IOException,
-			ServerSideException {
+	public void Calling_DstService_WithOnlyDstCountries_Should_ReturnOnlyDstCountries() 
+			throws AuthenticationException, ServerSideException {
 		// Arrage
 		int year = 2014;
 
@@ -226,10 +204,8 @@ public class DSTServiceTests {
 	}
 
 	@Test
-	public void Calling_DstService_WithoutOnlyDstCountries_Should_ReturnAllCountries()
-			throws SignatureException, DOMException,
-			ParserConfigurationException, SAXException, IOException,
-			ServerSideException {
+	public void Calling_DstService_WithoutOnlyDstCountries_Should_ReturnAllCountries() 
+			throws AuthenticationException, ServerSideException {
 		// Arrage
 		int year = 2014;
 
@@ -251,7 +227,7 @@ public class DSTServiceTests {
 
 		// Assert
 		assertFalse(service.getIncludeOnlyDstCountries());
-		assertEquals(319, result.size());
+		assertEquals(320, result.size());
 		assertTrue(dstAllYear.size() > 0);
 		assertTrue(noDstAllYear.size() > 0);
 

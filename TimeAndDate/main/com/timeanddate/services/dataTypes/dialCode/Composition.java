@@ -5,6 +5,11 @@ import org.w3c.dom.Node;
 
 import com.timeanddate.services.common.MalformedXMLException;
 
+/**
+ * 
+ * @author Cato Auestad <cato@timeanddate.com>
+ *
+ */
 public class Composition {
 	private PhoneNumberElementType _phoneNumberElement;
 	private String _number;
@@ -33,7 +38,7 @@ public class Composition {
 	}
 
 	private static PhoneNumberElementType getTypeByNode(Node node)
-			throws Exception {
+			throws MalformedXMLException {
 		String str = node.getTextContent();
 		switch (str) {
 		case "international-prefix":
@@ -57,7 +62,7 @@ public class Composition {
 		}
 	}
 
-	public static Composition fromNode(Node node) throws Exception {
+	public static Composition fromNode(Node node) throws MalformedXMLException {
 		Composition composition = new Composition();
 		NamedNodeMap attr = node.getAttributes();
 		Node id = attr.getNamedItem("id");

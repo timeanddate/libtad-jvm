@@ -1,10 +1,11 @@
 package com.timeanddate.services;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.security.SignatureException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,12 +13,16 @@ import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
+import com.timeanddate.services.common.AuthenticationException;
+import com.timeanddate.services.common.ServerSideException;
 import com.timeanddate.services.common.StringUtils;
 import com.timeanddate.services.common.UriUtils;
 import com.timeanddate.services.common.WebClient;
@@ -91,11 +96,11 @@ public class TimeService extends BaseService {
 	 *            Access key.
 	 * @param secretKey
 	 *            Secret key.
-	 * @throws SignatureException
-	 * @throws UnsupportedEncodingException
+	 * @throws AuthenticationException 
+	 * 			  Encryption of the authentication failed 
 	 */
 	public TimeService(String accessKey, String secretKey)
-			throws SignatureException, UnsupportedEncodingException {
+			throws AuthenticationException { 
 		super(accessKey, secretKey, "timeservice");
 
 		_includeCoordinates = true;
@@ -111,10 +116,12 @@ public class TimeService extends BaseService {
 	 * @param placeId
 	 *            Place identifier.
 	 * @return The current time for place.
-	 * @throws Exception
+	 * @throws ServerSideException 
+	 * 			  The server produced an error message
+	 * @throws IllegalArgumentException 
+	 * 			  A required argument was not as expected
 	 */
-	public List<Location> currentTimeForPlace(LocationId placeId)
-			throws Exception {
+	public List<Location> currentTimeForPlace(LocationId placeId) throws IllegalArgumentException, ServerSideException {
 		if (placeId == null)
 			throw new IllegalArgumentException(
 					"A required argument is null or empty");
@@ -167,14 +174,19 @@ public class TimeService extends BaseService {
 		return _includeListOfTimeChanges;
 	}
 
-	private List<Location> retrieveCurrentTime(String placeid) throws Exception {
+	private List<Location> retrieveCurrentTime(String placeid) throws ServerSideException {
 		Map<String, String> arguments = getArguments(placeid);
-		String query = UriUtils.BuildUriString(arguments);
-		URL uri = new URL(Constants.EntryPoint + ServiceName + query);
-		WebClient client = new WebClient();
-		String result = client.downloadString(uri);
+		String result = new String();
+		try {
+			String query = UriUtils.BuildUriString(arguments);
+			URL uri = new URL(Constants.EntryPoint + ServiceName + query);
+			WebClient client = new WebClient();
+			result = client.downloadString(uri);			
+		} catch(UnsupportedEncodingException | MalformedURLException e) {
+			
+		}
+		
 		XmlUtils.checkForErrors(result);
-
 		return FromXml(result);
 	}
 
@@ -197,19 +209,26 @@ public class TimeService extends BaseService {
 		return args;
 	}
 
-	private static List<Location> FromXml(String result) throws Exception {
+	private static List<Location> FromXml(String result) {
 		ArrayList<Location> list = new ArrayList<Location>();
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder builder = factory.newDocumentBuilder();
-		ByteArrayInputStream stream = new ByteArrayInputStream(
-				result.getBytes(StandardCharsets.UTF_8));
-		Document document = builder.parse(stream);
-		Element root = document.getDocumentElement();
-		NodeList nodes = root.getElementsByTagName("location");
+		
+		try {
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			ByteArrayInputStream stream = new ByteArrayInputStream(
+					result.getBytes(StandardCharsets.UTF_8));
+			Document document = builder.parse(stream);
+			Element root = document.getDocumentElement();
+			NodeList nodes = root.getElementsByTagName("location");
 
-		for (Node node : XmlUtils.asList(nodes)) {
-			list.add(Location.fromNode(node));
+			for (Node node : XmlUtils.asList(nodes)) {
+				list.add(Location.fromNode(node));
+			}
+		} catch (ParserConfigurationException | SAXException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
 
 		return list;
 	}

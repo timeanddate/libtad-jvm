@@ -5,6 +5,11 @@ import org.w3c.dom.NodeList;
 
 import com.timeanddate.services.common.XmlUtils;
 
+/**
+ * 
+ * @author Cato Auestad <cato@timeanddate.com>
+ *
+ */
 public class Geo {
 	private String _name;
 	private String _state;

@@ -2,6 +2,11 @@ package com.timeanddate.services.common;
 
 import com.timeanddate.services.dataTypes.holidays.*;
 
+/**
+ * 
+ * @author Cato Auestad <cato@timeanddate.com>
+ *
+ */
 public class HolidayTuple {
 	public String Command;
 	public HolidayType EnumRepresentation;

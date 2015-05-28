@@ -4,9 +4,15 @@ import org.w3c.dom.DOMException;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
+import com.timeanddate.services.common.MalformedXMLException;
 import com.timeanddate.services.common.StringUtils;
 import com.timeanddate.services.dataTypes.time.TADDateTime;
 
+/**
+ * 
+ * @author Cato Auestad <cato@timeanddate.com>
+ *
+ */
 public class AstronomyDayEvent {
 	private AstronomyEventCode _type;
 	private TADDateTime _ISOTime;
@@ -80,8 +86,7 @@ public class AstronomyDayEvent {
 		return _illuminated;
 	}
 
-	public static AstronomyDayEvent fromNode(Node node) throws DOMException,
-			Exception {
+	public static AstronomyDayEvent fromNode(Node node) {
 		AstronomyDayEvent event = new AstronomyDayEvent();
 		NamedNodeMap attr = node.getAttributes();
 		Node type = attr.getNamedItem("type");
@@ -93,8 +98,13 @@ public class AstronomyDayEvent {
 		Node illuminated = attr.getNamedItem("illuminated");
 
 		if (type != null)
-			event._type = StringUtils.resolveAstronomyEventCode(type
-					.getTextContent());
+			try {
+				event._type = StringUtils.resolveAstronomyEventCode(type
+						.getTextContent());
+			} catch (DOMException | MalformedXMLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 		if (utctime != null)
 			event._UTCTime = new TADDateTime(utctime.getTextContent());

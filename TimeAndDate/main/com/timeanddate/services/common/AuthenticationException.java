@@ -5,10 +5,14 @@ package com.timeanddate.services.common;
  * @author Cato Auestad <cato@timeanddate.com>
  *
  */
-public class ServerSideException extends Exception {
+public class AuthenticationException extends Exception {
+	public AuthenticationException(String msg) {
+		super(msg);
+	}
+	
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
-	public ServerSideException(String message) {
-		super(message);
-	}
 }

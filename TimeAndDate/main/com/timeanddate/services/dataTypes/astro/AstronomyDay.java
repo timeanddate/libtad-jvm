@@ -3,7 +3,6 @@ package com.timeanddate.services.dataTypes.astro;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.w3c.dom.DOMException;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -12,6 +11,11 @@ import com.timeanddate.services.common.TimeSpan;
 import com.timeanddate.services.common.XmlUtils;
 import com.timeanddate.services.dataTypes.time.TADDateTime;
 
+/**
+ * 
+ * @author Cato Auestad <cato@timeanddate.com>
+ *
+ */
 public class AstronomyDay {
 	private TADDateTime _date;
 	private TimeSpan _dayLength;
@@ -52,8 +56,7 @@ public class AstronomyDay {
 		_events = new ArrayList<AstronomyDayEvent>();
 	}
 
-	public static AstronomyDay fromNode(Node node) throws DOMException,
-			Exception {
+	public static AstronomyDay fromNode(Node node) {
 		AstronomyDay day = new AstronomyDay();
 		NamedNodeMap attr = node.getAttributes();
 		NodeList children = node.getChildNodes();

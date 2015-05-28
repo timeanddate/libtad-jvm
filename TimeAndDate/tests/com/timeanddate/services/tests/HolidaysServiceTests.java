@@ -2,21 +2,17 @@ package com.timeanddate.services.tests;
 
 import static org.junit.Assert.*;
 
-import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.security.SignatureException;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.junit.Test;
-import org.w3c.dom.DOMException;
-import org.xml.sax.SAXException;
 
 import com.timeanddate.services.HolidaysService;
+import com.timeanddate.services.common.AuthenticationException;
 import com.timeanddate.services.common.ServerSideException;
 import com.timeanddate.services.dataTypes.holidays.Holiday;
 import com.timeanddate.services.dataTypes.holidays.HolidayState;
@@ -26,10 +22,7 @@ import com.timeanddate.services.dataTypes.time.TADDateTime;
 public class HolidaysServiceTests {
 
 	@Test
-	public void Calling_HolidaysService_WithCountry_And_WithYear_Should_ReturnHolidays()
-			throws SignatureException, DOMException,
-			ParserConfigurationException, SAXException, IOException,
-			ServerSideException, URISyntaxException {
+	public void Calling_HolidaysService_WithCountry_And_WithYear_Should_ReturnHolidays() throws AuthenticationException, URISyntaxException, ServerSideException, MalformedURLException {
 		// Arrange
 		String country = "us";
 		int year = 2014;
@@ -63,10 +56,7 @@ public class HolidaysServiceTests {
 	}
 
 	@Test
-	public void Calling_HolidaysService_WithCountry_And_WithYear_Should_ReturnHolidaysWithStates()
-			throws DOMException, ParserConfigurationException, SAXException,
-			IOException, ServerSideException, URISyntaxException,
-			SignatureException {
+	public void Calling_HolidaysService_WithCountry_And_WithYear_Should_ReturnHolidaysWithStates() throws AuthenticationException, ServerSideException {
 		// Arrange
 		String country = "us";
 		int year = 2014;
@@ -94,10 +84,7 @@ public class HolidaysServiceTests {
 	}
 
 	@Test
-	public void Calling_HolidaysService_WithSpecifiedTypes_Should_ReturnHolidaysWithCorrectTypes()
-			throws SignatureException, DOMException,
-			ParserConfigurationException, SAXException, IOException,
-			ServerSideException, URISyntaxException {
+	public void Calling_HolidaysService_WithSpecifiedTypes_Should_ReturnHolidaysWithCorrectTypes() throws AuthenticationException, ServerSideException {
 		// Arrange
 		String country = "us";
 		String expectedType = "Christian";

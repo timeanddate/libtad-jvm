@@ -1,11 +1,14 @@
 package com.timeanddate.services;
 
-import java.io.UnsupportedEncodingException;
+import java.io.IOException;
 import java.net.URL;
-import java.security.SignatureException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.w3c.dom.DOMException;
+
+import com.timeanddate.services.common.AuthenticationException;
+import com.timeanddate.services.common.ServerSideException;
 import com.timeanddate.services.common.StringUtils;
 import com.timeanddate.services.common.UriUtils;
 import com.timeanddate.services.common.WebClient;
@@ -61,11 +64,11 @@ public class DialCodeService extends BaseService {
 	 *            Access key.
 	 * @param secretKey
 	 *            Secret key.
-	 * @throws SignatureException
-	 * @throws UnsupportedEncodingException
+	 * @throws AuthenticationException 
+	 * 			  Encryption of the authentication failed 
 	 */
 	public DialCodeService(String accessKey, String secretKey)
-			throws SignatureException, UnsupportedEncodingException {
+			throws AuthenticationException {
 		super(accessKey, secretKey, "dialcode");
 		_includeCurrentTime = true;
 		_includeLocations = true;
@@ -79,9 +82,12 @@ public class DialCodeService extends BaseService {
 	 * @param toLocation
 	 *            To location.
 	 * @return The dial code.
-	 * @throws Exception
+	 * @throws ServerSideException 
+	 * 			  The server produced an error message
+	 * @throws IllegalArgumentException 
+	 * 			  A required argument was not as expected
 	 */
-	public DialCodes getDialCode(LocationId toLocation) throws Exception {
+	public DialCodes getDialCode(LocationId toLocation) throws IllegalArgumentException, ServerSideException {
 		if (toLocation == null)
 			throw new IllegalArgumentException(
 					"A required argument is null or empty");
@@ -105,10 +111,13 @@ public class DialCodeService extends BaseService {
 	 * @param fromLocation
 	 *            From location.
 	 * @return The dial code.
-	 * @throws Exception
+	 * @throws ServerSideException 
+	 * 			  The server produced an error message
+	 * @throws IllegalArgumentException 
+	 * 			  A required argument was not as expected
 	 */
-	public DialCodes getDialCode(LocationId toLocation, LocationId fromLocation)
-			throws Exception {
+	public DialCodes getDialCode(LocationId toLocation, LocationId fromLocation) 
+			throws IllegalArgumentException, ServerSideException {
 		if (toLocation == null || fromLocation == null)
 			throw new IllegalArgumentException(
 					"A required argument is null or empty");
@@ -137,10 +146,13 @@ public class DialCodeService extends BaseService {
 	 * @param number
 	 *            Number.
 	 * @return The dial code.
-	 * @throws Exception
+	 * @throws ServerSideException 
+	 * 			  The server produced an error message
+	 * @throws IllegalArgumentException 
+	 * 			  A required argument was not as expected
 	 */
 	public DialCodes getDialCode(LocationId toLocation,
-			LocationId fromLocation, int number) throws Exception {
+			LocationId fromLocation, int number) throws IllegalArgumentException, ServerSideException {
 		_number = number;
 		return getDialCode(toLocation, fromLocation);
 	}
@@ -177,13 +189,20 @@ public class DialCodeService extends BaseService {
 		return _includeTimezoneInformation;
 	}
 
-	private DialCodes retrieveDialCode(Map<String, String> args)
-			throws Exception {
-		String query = UriUtils.BuildUriString(args);
-		URL uri = new URL(Constants.EntryPoint + ServiceName + query);
+	private DialCodes retrieveDialCode(Map<String, String> args) throws ServerSideException {
+		String result = new String();
+		try {
+			String query = UriUtils.BuildUriString(args);
+			URL uri = new URL(Constants.EntryPoint + ServiceName + query);
 
-		WebClient client = new WebClient();
-		String result = client.downloadString(uri);
+			WebClient client = new WebClient();
+			result = client.downloadString(uri);
+			
+		} catch (DOMException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		XmlUtils.checkForErrors(result);
 		return DialCodes.fromXml(result);
 	}

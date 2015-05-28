@@ -6,6 +6,8 @@ import org.junit.Test;
 
 import com.timeanddate.services.DialCodeService;
 import com.timeanddate.services.DialCodes;
+import com.timeanddate.services.common.AuthenticationException;
+import com.timeanddate.services.common.ServerSideException;
 import com.timeanddate.services.dataTypes.dialCode.Composition;
 import com.timeanddate.services.dataTypes.dialCode.PhoneNumberElementType;
 import com.timeanddate.services.dataTypes.places.Location;
@@ -14,8 +16,8 @@ import com.timeanddate.services.dataTypes.places.LocationId;
 public class DialCodeServiceTests {
 
 	@Test
-	public void Calling_DialCodeService_WithToId_Should_ReturnTheCorrectDialCode()
-			throws Exception {
+	public void Calling_DialCodeService_WithToId_Should_ReturnTheCorrectDialCode() 
+		throws AuthenticationException, ServerSideException {
 		// Arrange
 		LocationId osloId = new LocationId("norway/oslo");
 
@@ -31,8 +33,8 @@ public class DialCodeServiceTests {
 	}
 
 	@Test
-	public void Calling_DialCodeService_WithToId_And_WithFromId_Should_ReturnTheCorrectDialCode()
-			throws Exception {
+	public void Calling_DialCodeService_WithToId_And_WithFromId_Should_ReturnTheCorrectDialCode() 
+		throws AuthenticationException, ServerSideException {
 		// Arrange
 		LocationId osloId = new LocationId("norway/oslo");
 		LocationId newYorkId = new LocationId("usa/new-york");
@@ -58,8 +60,8 @@ public class DialCodeServiceTests {
 	}
 
 	@Test
-	public void Calling_DialCodeService_WithToId_And_WithFromId_And_WithNumber_Should_ReturnTheCorrectDialCode()
-			throws Exception {
+	public void Calling_DialCodeService_WithToId_And_WithFromId_And_WithNumber_Should_ReturnTheCorrectDialCode() 
+		throws AuthenticationException, ServerSideException {
 		// Arrange
 		LocationId osloId = new LocationId("norway/oslo");
 		LocationId newYorkId = new LocationId("usa/new-york");
@@ -118,8 +120,8 @@ public class DialCodeServiceTests {
 	}
 
 	@Test
-	public void Calling_DialCodeService_WithToId_And_WithoutLocation_Should_NotReturnLocations()
-			throws Exception {
+	public void Calling_DialCodeService_WithToId_And_WithoutLocation_Should_NotReturnLocations() 
+		throws AuthenticationException, ServerSideException {
 		// Arrange
 		LocationId osloId = new LocationId("norway/oslo");
 
@@ -134,8 +136,8 @@ public class DialCodeServiceTests {
 	}
 
 	@Test
-	public void Calling_DialCodeService_WithToId_And_WithoutLatLong_Should_NotReturnLocations()
-			throws Exception {
+	public void Calling_DialCodeService_WithToId_And_WithoutLatLong_Should_NotReturnLocations() 
+		throws AuthenticationException, ServerSideException {
 		// Arrange
 		LocationId osloId = new LocationId("norway/oslo");
 
@@ -152,8 +154,8 @@ public class DialCodeServiceTests {
 	}
 
 	@Test
-	public void Calling_DialCodeService_WithToId_And_WithoutTZInfo_Should_NotReturnTZInfo()
-			throws Exception {
+	public void Calling_DialCodeService_WithToId_And_WithoutTZInfo_Should_NotReturnTZInfo() 
+		throws AuthenticationException, ServerSideException {
 		// Arrange
 		LocationId osloId = new LocationId("norway/oslo");
 
@@ -170,8 +172,8 @@ public class DialCodeServiceTests {
 	}
 
 	@Test
-	public void Calling_DialCodeService_WithToId_And_WithoutCurrentTime_Should_NotReturnCurrentTime()
-			throws Exception {
+	public void Calling_DialCodeService_WithToId_And_WithoutCurrentTime_Should_NotReturnCurrentTime() 
+		throws AuthenticationException, ServerSideException {
 		// Arrange
 		LocationId osloId = new LocationId("norway/oslo");
 

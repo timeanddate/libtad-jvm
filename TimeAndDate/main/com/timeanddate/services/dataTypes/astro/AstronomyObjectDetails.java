@@ -3,7 +3,6 @@ package com.timeanddate.services.dataTypes.astro;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.w3c.dom.DOMException;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -11,6 +10,11 @@ import org.w3c.dom.NodeList;
 import com.timeanddate.services.common.MalformedXMLException;
 import com.timeanddate.services.common.XmlUtils;
 
+/**
+ * 
+ * @author Cato Auestad <cato@timeanddate.com>
+ *
+ */
 public class AstronomyObjectDetails {
 	private AstronomyObjectType _name;
 	private List<AstronomyDay> _days;
@@ -33,8 +37,7 @@ public class AstronomyObjectDetails {
 		_days = new ArrayList<AstronomyDay>();
 	}
 
-	public static AstronomyObjectDetails fromNode(Node node)
-			throws DOMException, Exception {
+	public static AstronomyObjectDetails fromNode(Node node) throws MalformedXMLException {
 		AstronomyObjectDetails obj = new AstronomyObjectDetails();
 		NamedNodeMap attr = node.getAttributes();
 		Node name = attr.getNamedItem("name");

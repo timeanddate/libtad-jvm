@@ -6,6 +6,11 @@ import org.w3c.dom.NodeList;
 
 import com.timeanddate.services.common.XmlUtils;
 
+/**
+ * 
+ * @author Cato Auestad <cato@timeanddate.com>
+ *
+ */
 public class Place {
 	public int _id;
 	public String _urlid;

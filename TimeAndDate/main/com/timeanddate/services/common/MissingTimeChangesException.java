@@ -1,5 +1,10 @@
 package com.timeanddate.services.common;
 
+/**
+ * 
+ * @author Cato Auestad <cato@timeanddate.com>
+ *
+ */
 public class MissingTimeChangesException extends Exception {
 	public MissingTimeChangesException(String msg) {
 		super(msg);

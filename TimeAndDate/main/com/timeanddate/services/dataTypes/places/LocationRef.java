@@ -3,6 +3,11 @@ package com.timeanddate.services.dataTypes.places;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
+/**
+ * 
+ * @author Cato Auestad <cato@timeanddate.com>
+ *
+ */
 public class LocationRef {
 	private String _id;
 	private String _name;

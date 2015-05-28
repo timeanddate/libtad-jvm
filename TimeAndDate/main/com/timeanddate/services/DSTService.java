@@ -3,9 +3,9 @@ package com.timeanddate.services;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.security.SignatureException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,13 +15,13 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import com.timeanddate.services.common.AuthenticationException;
 import com.timeanddate.services.common.ServerSideException;
 import com.timeanddate.services.common.StringUtils;
 import com.timeanddate.services.common.UriUtils;
@@ -76,11 +76,11 @@ public class DSTService extends BaseService {
 	 *            Access key.
 	 * @param secretKey
 	 *            Secret key.
-	 * @throws SignatureException
-	 * @throws UnsupportedEncodingException
+	 * @throws AuthenticationException 
+	 * 			  Encryption of the authentication failed 
 	 */
 	public DSTService(String accessKey, String secretKey)
-			throws SignatureException, UnsupportedEncodingException {
+			throws AuthenticationException {
 		super(accessKey, secretKey, "dstlist");
 		_includeTimeChanges = false;
 		_includePlacesForEveryCountry = true;
@@ -91,15 +91,12 @@ public class DSTService extends BaseService {
 	 * Gets the all entries with daylight saving time
 	 * 
 	 * @return The daylight saving time.
-	 * @throws DOMException
-	 * @throws ParserConfigurationException
-	 * @throws SAXException
-	 * @throws IOException
-	 * @throws ServerSideException
+	 * @throws ServerSideException 
+	 * 			  The server produced an error message
+	 * @throws IllegalArgumentException 
+	 * 			  A required argument was not as expected
 	 */
-	public List<DST> getDaylightSavingTime() throws DOMException,
-			ParserConfigurationException, SAXException, IOException,
-			ServerSideException {
+	public List<DST> getDaylightSavingTime() throws IllegalArgumentException, ServerSideException {
 		return retrieveDstList(null);
 	}
 
@@ -108,15 +105,12 @@ public class DSTService extends BaseService {
 	 * 
 	 * @param countryCode
 	 * @return The daylight saving time.
-	 * @throws DOMException
-	 * @throws ParserConfigurationException
-	 * @throws SAXException
-	 * @throws IOException
-	 * @throws ServerSideException
+	 * @throws ServerSideException 
+	 * 			  The server produced an error message
+	 * @throws IllegalArgumentException 
+	 * 			  A required argument was not as expected
 	 */
-	public List<DST> getDaylightSavingTime(String countryCode)
-			throws DOMException, ParserConfigurationException, SAXException,
-			IOException, ServerSideException {
+	public List<DST> getDaylightSavingTime(String countryCode) throws IllegalArgumentException, ServerSideException {
 		if (countryCode == null
 				|| (countryCode != null && countryCode.isEmpty()))
 			throw new IllegalArgumentException(
@@ -135,15 +129,12 @@ public class DSTService extends BaseService {
 	 * @param year
 	 *            Year
 	 * @return The daylight saving time.
-	 * @throws DOMException
-	 * @throws ParserConfigurationException
-	 * @throws SAXException
-	 * @throws IOException
-	 * @throws ServerSideException
+	 * @throws ServerSideException 
+	 * 			  The server produced an error message
+	 * @throws IllegalArgumentException 
+	 * 			  A required argument was not as expected
 	 */
-	public List<DST> getDaylightSavingTime(int year) throws DOMException,
-			ParserConfigurationException, SAXException, IOException,
-			ServerSideException {
+	public List<DST> getDaylightSavingTime(int year) throws IllegalArgumentException, ServerSideException {
 		if (year <= 0)
 			throw new IllegalArgumentException(
 					"A required argument is null or empty");
@@ -162,15 +153,12 @@ public class DSTService extends BaseService {
 	 * @param year
 	 *            Year.
 	 * @return The daylight saving time.
-	 * @throws DOMException
-	 * @throws ParserConfigurationException
-	 * @throws SAXException
-	 * @throws IOException
-	 * @throws ServerSideException
+	 * @throws ServerSideException 
+	 * 			  The server produced an error message
+	 * @throws IllegalArgumentException 
+	 * 			  A required argument was not as expected
 	 */
-	public List<DST> getDaylightSavingTime(String countryCode, int year)
-			throws DOMException, ParserConfigurationException, SAXException,
-			IOException, ServerSideException {
+	public List<DST> getDaylightSavingTime(String countryCode, int year) throws ServerSideException {
 		if ((countryCode == null || (countryCode != null && countryCode
 				.isEmpty())) && year <= 0)
 			throw new IllegalArgumentException(
@@ -209,16 +197,22 @@ public class DSTService extends BaseService {
 	}
 
 	private List<DST> retrieveDstList(Map<String, String> args)
-			throws DOMException, ParserConfigurationException, SAXException,
-			IOException, ServerSideException {
+			throws ServerSideException {
 		Map<String, String> arguments = getArguments();
 		if (args != null)
 			arguments.putAll(args);
 
-		String query = UriUtils.BuildUriString(arguments);
-		URL uri = new URL(Constants.EntryPoint + ServiceName + query);
-		WebClient client = new WebClient();
-		String result = client.downloadString(uri);
+		String result = new String();
+		try {
+			String query = UriUtils.BuildUriString(arguments);
+			URL uri = new URL(Constants.EntryPoint + ServiceName + query);
+			WebClient client = new WebClient();
+			result = client.downloadString(uri);
+		} catch (UnsupportedEncodingException | MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		XmlUtils.checkForErrors(result);
 		return fromXml(result);
 	}
@@ -239,19 +233,24 @@ public class DSTService extends BaseService {
 		return args;
 	}
 
-	private static List<DST> fromXml(String result)
-			throws ParserConfigurationException, SAXException, IOException {
+	private static List<DST> fromXml(String result) {
 		List<DST> list = new ArrayList<DST>();
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder builder = factory.newDocumentBuilder();
-		ByteArrayInputStream stream = new ByteArrayInputStream(
-				result.getBytes(StandardCharsets.UTF_8));
-		Document document = builder.parse(stream);
-		Element root = document.getDocumentElement();
-		NodeList dstlist = root.getElementsByTagName("dstentry");
+		
+		try {
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			ByteArrayInputStream stream = new ByteArrayInputStream(
+					result.getBytes(StandardCharsets.UTF_8));
+			Document document = builder.parse(stream);
+			Element root = document.getDocumentElement();
+			NodeList dstlist = root.getElementsByTagName("dstentry");
 
-		for (Node node : XmlUtils.asList(dstlist))
-			list.add(DST.fromNode(node));
+			for (Node node : XmlUtils.asList(dstlist))
+				list.add(DST.fromNode(node));
+
+		} catch (ParserConfigurationException | SAXException | IOException e) {
+			e.printStackTrace();
+		}
 
 		return list;
 	}

@@ -8,6 +8,11 @@ import org.w3c.dom.Node;
 import com.timeanddate.services.common.MalformedXMLException;
 import com.timeanddate.services.common.TimeSpan;
 
+/**
+ * 
+ * @author Cato Auestad <cato@timeanddate.com>
+ *
+ */
 public class AstronomyEvent implements Comparable<AstronomyEvent> {
 	private TimeSpan _time;
 	public AstronomyEventType _type;
@@ -26,7 +31,7 @@ public class AstronomyEvent implements Comparable<AstronomyEvent> {
 		return _time;
 	}
 
-	public static AstronomyEvent fromNode(Node node) throws Exception {
+	public static AstronomyEvent fromNode(Node node) throws MalformedXMLException {
 		AstronomyEvent event = new AstronomyEvent();
 		NamedNodeMap attr = node.getAttributes();
 		Node type = attr.getNamedItem("type");

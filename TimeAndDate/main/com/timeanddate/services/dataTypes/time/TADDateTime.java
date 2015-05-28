@@ -6,6 +6,11 @@ import java.util.concurrent.TimeUnit;
 
 import com.timeanddate.services.common.ISODateTimeParser;
 
+/**
+ * 
+ * @author Cato Auestad <cato@timeanddate.com>
+ *
+ */
 public class TADDateTime {
 	protected int Year;
 

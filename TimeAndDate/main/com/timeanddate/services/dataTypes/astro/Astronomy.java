@@ -10,6 +10,11 @@ import org.w3c.dom.*;
 import com.timeanddate.services.common.MalformedXMLException;
 import com.timeanddate.services.common.XmlUtils;
 
+/**
+ * 
+ * @author Cato Auestad <cato@timeanddate.com>
+ *
+ */
 public class Astronomy {
 	private AstronomyObjectType _name;
 	private List<AstronomyEvent> _events;
@@ -99,32 +104,36 @@ public class Astronomy {
 		_events = new ArrayList<AstronomyEvent>();
 	}
 
-	public static Astronomy fromNode(Node node) throws Exception {
+	public static Astronomy fromNode(Node node) {
 		Astronomy astro = new Astronomy();
 		NamedNodeMap attr = node.getAttributes();
 		Node name = attr.getNamedItem("name");
 		NodeList nodes = node.getChildNodes();
 
-		if (name != null) {
-			astro._name = parseName(name.getTextContent());
-		}
-
-		for (Node n : XmlUtils.asList(nodes)) {
-			switch (n.getNodeName()) {
-			case "event":
-				astro._events.add(AstronomyEvent.fromNode(n));
-				break;
-			case "special":
-				astro._special = AstronomySpecial.fromNode(n);
-				break;
+		try {
+			if (name != null) {
+				astro._name = parseName(name.getTextContent());
 			}
+			
+			for (Node n : XmlUtils.asList(nodes)) {
+				switch (n.getNodeName()) {
+				case "event":
+					astro._events.add(AstronomyEvent.fromNode(n));
+					break;
+				case "special":
+					astro._special = AstronomySpecial.fromNode(n);
+					break;
+				}
+			}
+		} catch (MalformedXMLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 		return astro;
 	}
 
-	private static AstronomyObjectType parseName(String objectName)
-			throws Exception {
+	private static AstronomyObjectType parseName(String objectName) throws MalformedXMLException {
 		switch (objectName) {
 		case "sun":
 			return AstronomyObjectType.Sun;

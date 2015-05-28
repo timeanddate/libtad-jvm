@@ -5,6 +5,11 @@ import org.w3c.dom.Node;
 
 import com.timeanddate.services.common.MalformedXMLException;
 
+/**
+ * 
+ * @author Cato Auestad <cato@timeanddate.com>
+ *
+ */
 public class AstronomySpecial {
 	private AstronomyEventType _type;
 	
@@ -15,7 +20,7 @@ public class AstronomySpecial {
 		return _type;
 	}
 
-	public static AstronomySpecial fromNode(Node node) throws Exception {
+	public static AstronomySpecial fromNode(Node node) throws MalformedXMLException {
 		AstronomySpecial special = new AstronomySpecial();
 		NamedNodeMap attr = node.getAttributes();
 		Node type = attr.getNamedItem("type");

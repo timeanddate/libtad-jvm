@@ -1,5 +1,10 @@
 package com.timeanddate.services.common;
 
+/**
+ * 
+ * @author Cato Auestad <cato@timeanddate.com>
+ *
+ */
 public final class ISODateTimeParser {
 	private int _year;
 	private int _month;

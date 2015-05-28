@@ -2,6 +2,11 @@ package com.timeanddate.services.dataTypes.places;
 
 import com.timeanddate.services.common.StringUtils;
 
+/**
+ * 
+ * @author Cato Auestad <cato@timeanddate.com>
+ *
+ */
 public class LocationId {
 	private String _textualId;
 	private int _numericId = -1;

@@ -3,6 +3,11 @@ package com.timeanddate.services.dataTypes.places;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
+/**
+ * 
+ * @author Cato Auestad <cato@timeanddate.com>
+ *
+ */
 public class Country {
 	public String _id;
 	public String _name;

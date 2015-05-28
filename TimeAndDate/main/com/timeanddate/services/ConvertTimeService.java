@@ -1,8 +1,7 @@
 package com.timeanddate.services;
 
-import java.io.UnsupportedEncodingException;
+import java.io.IOException;
 import java.net.URL;
-import java.security.SignatureException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -10,7 +9,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.timeanddate.services.common.IdFormatException;
+import org.w3c.dom.DOMException;
+
+import com.timeanddate.services.common.AuthenticationException;
+import com.timeanddate.services.common.ServerSideException;
 import com.timeanddate.services.common.StringUtils;
 import com.timeanddate.services.common.UriUtils;
 import com.timeanddate.services.common.WebClient;
@@ -59,11 +61,11 @@ public class ConvertTimeService extends BaseService {
 	 *            Access key.
 	 * @param secretKey
 	 *            Secret key.
-	 * @throws SignatureException
-	 * @throws UnsupportedEncodingException
+	 * @throws AuthenticationException 
+	 * 			  Encryption of the authentication failed 
 	 */
 	public ConvertTimeService(String accessKey, String secretKey)
-			throws SignatureException, UnsupportedEncodingException {
+			throws AuthenticationException {
 		super(accessKey, secretKey, "converttime");
 		_includeTimeChanges = true;
 		_includeTimezoneInformation = true;
@@ -80,22 +82,37 @@ public class ConvertTimeService extends BaseService {
 	 * @param toIds
 	 *            The place IDs to convert to.
 	 * @return The converted time.
-	 * @throws Exception
+	 * @throws ServerSideException 
+	 * 			  The server produced an error message
+	 * @throws IllegalArgumentException 
+	 * 			  A required argument was not as expected
 	 */
 	public ConvertedTimes convertTime(LocationId fromId, String iso,
-			List<LocationId> toIds) throws Exception {
+			List<LocationId> toIds) throws IllegalArgumentException, ServerSideException {
 		if (fromId == null || iso == null || (iso != null && iso.isEmpty()))
-			throw new IdFormatException("A required argument is null or empty");
+			throw new IllegalArgumentException("A required argument is null or empty");
 
 		String id = fromId.getId();
 		if (id.isEmpty())
-			throw new IdFormatException("ID empty");
+			throw new IllegalArgumentException("ID empty");
 
 		return executeConvertTime(id, iso, toIds);
 	}
 
-	public ConvertedTimes convertTime(LocationId fromId, String iso)
-			throws Exception {
+	/**
+	 * 
+	 * @param fromId
+	 * 			  The places identifier
+	 * @param iso
+	 * 			  ISO 8601-formatted string.
+	 * @return The converted time.
+	 * @throws ServerSideException 
+	 * 			  The server produced an error message
+	 * @throws IllegalArgumentException 
+	 * 			  A required argument was not as expected
+	 */
+	public ConvertedTimes convertTime(LocationId fromId, String iso) 
+			throws IllegalArgumentException, ServerSideException {
 		return convertTime(fromId, iso, null);
 	}
 
@@ -110,10 +127,13 @@ public class ConvertTimeService extends BaseService {
 	 * @param toIds
 	 *            The place IDs to convert to.
 	 * @return The converted time.
-	 * @throws Exception
+	 * @throws ServerSideException 
+	 * 			  The server produced an error message
+	 * @throws IllegalArgumentException 
+	 * 			  A required argument was not as expected
 	 */
 	public ConvertedTimes convertTime(LocationId fromId, Calendar date,
-			List<LocationId> toIds) throws Exception {
+			List<LocationId> toIds) throws IllegalArgumentException, ServerSideException {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSSXXX");
 		return convertTime(fromId, sdf.format(date), toIds);
 	}
@@ -129,10 +149,13 @@ public class ConvertTimeService extends BaseService {
 	 * @param toIds
 	 *            The place IDs to convert to.
 	 * @return The converted time.
-	 * @throws Exception
+	 * @throws ServerSideException 
+	 * 			  The server produced an error message
+	 * @throws IllegalArgumentException 
+	 * 			  A required argument was not as expected
 	 */
 	public ConvertedTimes convertTime(LocationId fromId, TADDateTime date,
-			List<LocationId> toIds) throws Exception {
+			List<LocationId> toIds) throws IllegalArgumentException, ServerSideException {
 		return convertTime(fromId, date.toString(), toIds);
 	}
 
@@ -144,10 +167,13 @@ public class ConvertTimeService extends BaseService {
 	 * @param date
 	 *            Date.
 	 * @return The converted time.
-	 * @throws Exception
+	 * @throws ServerSideException 
+	 * 			  The server produced an error message
+	 * @throws IllegalArgumentException 
+	 * 			  A required argument was not as expected
 	 */
-	public ConvertedTimes convertTime(LocationId fromId, Calendar date)
-			throws Exception {
+	public ConvertedTimes convertTime(LocationId fromId, Calendar date) 
+			throws IllegalArgumentException, ServerSideException {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSSXXX");
 		return convertTime(fromId, sdf.format(date));
 	}
@@ -160,10 +186,13 @@ public class ConvertTimeService extends BaseService {
 	 * @param date
 	 *            Date.
 	 * @return The converted time.
-	 * @throws Exception
+	 * @throws ServerSideException 
+	 * 			  The server produced an error message
+	 * @throws IllegalArgumentException 
+	 * 			  A required argument was not as expected
 	 */
-	public ConvertedTimes convertTime(LocationId fromId, TADDateTime date)
-			throws Exception {
+	public ConvertedTimes convertTime(LocationId fromId, TADDateTime date) 
+			throws IllegalArgumentException, ServerSideException {
 		return convertTime(fromId, date.toString());
 	}
 	
@@ -192,29 +221,36 @@ public class ConvertTimeService extends BaseService {
 	}
 
 	private ConvertedTimes executeConvertTime(String fromId, String iso,
-			List<LocationId> toIds) throws Exception {
+			List<LocationId> toIds) throws IllegalArgumentException, ServerSideException {
 		if ((fromId == null || (fromId != null && fromId.isEmpty()))
 				|| (iso == null || (iso != null && iso.isEmpty())))
 			throw new IllegalArgumentException(
 					"A required argument is null or empty");
 
 		Map<String, String> arguments = getCommonArguments(fromId);
+		String result = new String();
 		arguments.put("iso", iso);
 
 		if (toIds != null)
 			arguments.putAll(getArgumentsForToIds(toIds));
 
-		String query = UriUtils.BuildUriString(arguments);
-
-		URL uri = new URL(Constants.EntryPoint + ServiceName + query);
-		WebClient client = new WebClient();
-		String result = client.downloadString(uri);
-		XmlUtils.checkForErrors(result);
+		try {
+			String query = UriUtils.BuildUriString(arguments);
+			URL uri = new URL(Constants.EntryPoint + ServiceName + query);
+			WebClient client = new WebClient();
+			result = client.downloadString(uri);
+			XmlUtils.checkForErrors(result);
+			
+		} catch (DOMException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return ConvertedTimes.fromXml(result);
 	}
 
 	private Map<String, String> getArgumentsForToIds(List<LocationId> toIds)
-			throws Exception {
+			throws IllegalArgumentException {
 		Map<String, String> args = new HashMap<String, String>();
 		List<String> list = new ArrayList<String>();
 
@@ -223,7 +259,7 @@ public class ConvertTimeService extends BaseService {
 			if (idstr != null && !idstr.isEmpty() && !idstr.contains(","))
 				list.add(idstr);
 			else if (idstr != null && !idstr.isEmpty() && idstr.contains(","))
-				throw new Exception("Place ID cannot contain any commas");
+				throw new IllegalArgumentException("Place ID cannot contain any commas");
 		}
 
 		args.put("toid", StringUtils.join(list, ","));

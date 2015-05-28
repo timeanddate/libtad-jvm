@@ -7,6 +7,11 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+/**
+ * 
+ * @author Cato Auestad <cato@timeanddate.com>
+ *
+ */
 public class WebClient {
 	public String downloadString(URL url) {
 		HttpURLConnection connection = null;

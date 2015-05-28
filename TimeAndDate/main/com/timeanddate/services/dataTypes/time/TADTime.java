@@ -6,6 +6,11 @@ import org.w3c.dom.NodeList;
 
 import com.timeanddate.services.common.XmlUtils;
 
+/**
+ * 
+ * @author Cato Auestad <cato@timeanddate.com>
+ *
+ */
 public class TADTime {
 	private String _ISO;
 	private TADDateTime _datetime;

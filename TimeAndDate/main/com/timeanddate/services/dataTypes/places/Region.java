@@ -8,6 +8,11 @@ import org.w3c.dom.NodeList;
 
 import com.timeanddate.services.common.XmlUtils;
 
+/**
+ * 
+ * @author Cato Auestad <cato@timeanddate.com>
+ *
+ */
 public class Region {
 	private Country _country;
 	private String _description;

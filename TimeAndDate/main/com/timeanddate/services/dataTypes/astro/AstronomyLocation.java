@@ -3,14 +3,19 @@ package com.timeanddate.services.dataTypes.astro;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.w3c.dom.DOMException;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import com.timeanddate.services.common.MalformedXMLException;
 import com.timeanddate.services.common.XmlUtils;
 import com.timeanddate.services.dataTypes.places.Geo;
 
+/**
+ * 
+ * @author Cato Auestad <cato@timeanddate.com>
+ *
+ */
 public class AstronomyLocation {
 	private String _id;
 	private Geo _geography;
@@ -41,8 +46,7 @@ public class AstronomyLocation {
 		_objects = new ArrayList<AstronomyObjectDetails>();
 	}
 
-	public static AstronomyLocation fromNode(Node location)
-			throws DOMException, Exception {
+	public static AstronomyLocation fromNode(Node location) {
 		AstronomyLocation astro = new AstronomyLocation();
 		NamedNodeMap attr = location.getAttributes();
 		Node id = attr.getNamedItem("id");
@@ -55,7 +59,11 @@ public class AstronomyLocation {
 				break;
 			case "astronomy":
 				for (Node child : XmlUtils.asList(n.getChildNodes()))
-					astro._objects.add(AstronomyObjectDetails.fromNode(child));
+					try {
+						astro._objects.add(AstronomyObjectDetails.fromNode(child));
+					} catch (MalformedXMLException e) {
+						e.printStackTrace();
+					}
 				break;
 
 			}

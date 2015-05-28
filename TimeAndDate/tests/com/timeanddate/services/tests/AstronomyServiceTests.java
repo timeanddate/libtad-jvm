@@ -8,7 +8,10 @@ import java.util.List;
 import org.junit.Test;
 
 import com.timeanddate.services.AstronomyService;
+import com.timeanddate.services.common.AuthenticationException;
 import com.timeanddate.services.common.DateTimeUtils;
+import com.timeanddate.services.common.QueriedDateOutOfRangeException;
+import com.timeanddate.services.common.ServerSideException;
 import com.timeanddate.services.dataTypes.astro.AstronomyDay;
 import com.timeanddate.services.dataTypes.astro.AstronomyDayEvent;
 import com.timeanddate.services.dataTypes.astro.AstronomyEventClass;
@@ -23,8 +26,8 @@ import com.timeanddate.services.dataTypes.time.TADDateTime;
 public class AstronomyServiceTests {
 
 	@Test
-	public void Calling_AstronomyService_WithoutEnddate_ReturnsCorrectAstronomyInfo()
-			throws Exception {
+	public void Calling_AstronomyService_WithoutEnddate_ReturnsCorrectAstronomyInfo() 
+		throws AuthenticationException, IllegalArgumentException, ServerSideException {
 		// Arrange
 		TADDateTime startDate = new TADDateTime(2014, 1, 1);
 		AstronomyObjectType type = AstronomyObjectType.Sun;
@@ -63,8 +66,8 @@ public class AstronomyServiceTests {
 	}
 
 	@Test
-	public void Calling_AstronomyService_WithEnddate_Should_ReturnCorrectAstronomyInfo()
-			throws Exception {
+	public void Calling_AstronomyService_WithEnddate_Should_ReturnCorrectAstronomyInfo() 
+		throws AuthenticationException, IllegalArgumentException, ServerSideException {
 		// Arrange
 		TADDateTime startDate = new TADDateTime(2014, 1, 1);
 		TADDateTime endDate = new TADDateTime(2014, 1, 30);
@@ -94,8 +97,8 @@ public class AstronomyServiceTests {
 	}
 
 	@Test
-	public void Calling_AstronomyService_WithoutEnddate_And_OnlyOneInclusions_Should_ReturnCorrectAstronomyInfo()
-			throws Exception {
+	public void Calling_AstronomyService_WithoutEnddate_And_OnlyOneInclusions_Should_ReturnCorrectAstronomyInfo() 
+		throws AuthenticationException, IllegalArgumentException, ServerSideException {
 		// Arrange
 		TADDateTime startDate = new TADDateTime(2014, 1, 1);
 		AstronomyObjectType type = AstronomyObjectType.Sun;
@@ -132,8 +135,8 @@ public class AstronomyServiceTests {
 	}
 
 	@Test
-	public void Calling_AstronomyService_WithEnddate_And_SeveralInclusions_Should_ReturnsCorrectAstronomyInfo()
-			throws Exception {
+	public void Calling_AstronomyService_WithEnddate_And_SeveralInclusions_Should_ReturnsCorrectAstronomyInfo() 
+		throws AuthenticationException, QueriedDateOutOfRangeException, ServerSideException {
 		// Arrange
 		TADDateTime startDate = new TADDateTime(2014, 1, 1);
 		TADDateTime endDate = new TADDateTime(2014, 1, 30);
@@ -174,8 +177,8 @@ public class AstronomyServiceTests {
 	}
 
 	@Test
-	public void Calling_AstronomyService_WithoutLatLong_Should_ReturnsCorrectAstronomyInfo()
-			throws Exception {
+	public void Calling_AstronomyService_WithoutLatLong_Should_ReturnsCorrectAstronomyInfo() 
+		throws AuthenticationException, QueriedDateOutOfRangeException, ServerSideException {
 		// Arrange
 		TADDateTime startDate = new TADDateTime(2014, 1, 1);
 		TADDateTime endDate = new TADDateTime(2014, 1, 30);
@@ -211,8 +214,8 @@ public class AstronomyServiceTests {
 	}
 
 	@Test
-	public void Calling_AstronomyService_WithLatLong_WithoutISOTime_Should_ReturnCorrectAstronomyInfo()
-			throws Exception {
+	public void Calling_AstronomyService_WithLatLong_WithoutISOTime_Should_ReturnCorrectAstronomyInfo() 
+		throws AuthenticationException, IllegalArgumentException, ServerSideException {
 		// Arrange
 		TADDateTime startDate = new TADDateTime(2014, 1, 1);
 
@@ -247,8 +250,8 @@ public class AstronomyServiceTests {
 	}
 
 	@Test
-	public void Calling_AstronomyService_WithoutISOTime_Should_ReturnsCorrectAstronomyInfo()
-			throws Exception {
+	public void Calling_AstronomyService_WithoutISOTime_Should_ReturnsCorrectAstronomyInfo() 
+		throws AuthenticationException, QueriedDateOutOfRangeException, ServerSideException {
 		// Arrange
 		TADDateTime startDate = new TADDateTime(2014, 1, 1);
 		TADDateTime endDate = new TADDateTime(2014, 1, 30);
@@ -283,8 +286,8 @@ public class AstronomyServiceTests {
 	}
 
 	@Test
-	public void Calling_AstronomyService_WithISOTime_Should_ReturnsCorrectAstronomyInfo()
-			throws Exception {
+	public void Calling_AstronomyService_WithISOTime_Should_ReturnsCorrectAstronomyInfo() 
+		throws AuthenticationException, QueriedDateOutOfRangeException, ServerSideException {
 		// Arrange
 		TADDateTime startDate = new TADDateTime(2014, 1, 1);
 		TADDateTime endDate = new TADDateTime(2014, 1, 30);
@@ -320,8 +323,8 @@ public class AstronomyServiceTests {
 	}
 
 	@Test
-	public void Calling_AstronomyService_WithoutUTCTime_Should_ReturnsCorrectAstronomyInfo()
-			throws Exception {
+	public void Calling_AstronomyService_WithoutUTCTime_Should_ReturnsCorrectAstronomyInfo() 
+		throws AuthenticationException, QueriedDateOutOfRangeException, ServerSideException {
 		// Arrange
 		TADDateTime startDate = new TADDateTime(2014, 3, 2);
 		TADDateTime endDate = new TADDateTime(2014, 3, 20);
@@ -356,8 +359,8 @@ public class AstronomyServiceTests {
 	}
 
 	@Test
-	public void Calling_AstronomyService_WithUTCTime_Should_ReturnsCorrectAstronomyInfo()
-			throws Exception {
+	public void Calling_AstronomyService_WithUTCTime_Should_ReturnsCorrectAstronomyInfo() 
+		throws AuthenticationException, IllegalArgumentException, ServerSideException {
 		// Arrange
 		TADDateTime startDate = new TADDateTime(2014, 2, 3);
 		AstronomyObjectType type = AstronomyObjectType.Sun;
@@ -393,8 +396,8 @@ public class AstronomyServiceTests {
 	}
 
 	@Test
-	public void Calling_AstronomyService_WithRadiusTime_Should_ReturnsCorrectAstronomyInfo()
-			throws Exception {
+	public void Calling_AstronomyService_WithRadiusTime_Should_ReturnsCorrectAstronomyInfo() 
+		throws AuthenticationException, IllegalArgumentException, ServerSideException {
 		// Arrange
 		TADDateTime startDate = new TADDateTime(2014, 1, 1);
 		AstronomyObjectType type = AstronomyObjectType.Sun;

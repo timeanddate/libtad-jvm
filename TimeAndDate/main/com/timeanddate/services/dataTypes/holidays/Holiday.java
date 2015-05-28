@@ -14,6 +14,11 @@ import com.timeanddate.services.common.XmlUtils;
 import com.timeanddate.services.dataTypes.time.TADTime;
 import com.timeanddate.services.dataTypes.places.Country;
 
+/**
+ * 
+ * @author Cato Auestad <cato@timeanddate.com>
+ *
+ */
 public class Holiday {
 	private int _id;
 	private String _uid;
@@ -126,8 +131,7 @@ public class Holiday {
 		_states = new ArrayList<HolidayState>();
 	}
 
-	public static Holiday fromNode(Node node) throws DOMException,
-			URISyntaxException {
+	public static Holiday fromNode(Node node) {
 		Holiday holiday = new Holiday();
 		NamedNodeMap attr = node.getAttributes();
 		Node id = attr.getNamedItem("id");
@@ -168,7 +172,12 @@ public class Holiday {
 		}
 
 		holiday._id = Integer.parseInt(id.getTextContent());
-		holiday._url = new URI(url.getTextContent());
+		try {
+			holiday._url = new URI(url.getTextContent());
+		} catch (DOMException | URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		return holiday;
 	}

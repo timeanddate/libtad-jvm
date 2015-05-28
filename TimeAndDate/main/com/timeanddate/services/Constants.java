@@ -1,5 +1,10 @@
 package com.timeanddate.services;
 
+/**
+ * 
+ * @author Cato Auestad <cato@timeanddate.com>
+ *
+ */
 final class Constants {
 	static final int DefaultVersion = 2;
 	static final String DefaultLanguage = "en";

@@ -5,13 +5,18 @@ import java.util.HashMap;
 import java.util.Date;
 import java.util.TimeZone;
 import java.text.*;
-import java.io.UnsupportedEncodingException;
-import java.security.SignatureException;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 
+import com.timeanddate.services.common.AuthenticationException;
+
+/**
+ * 
+ * @author Cato Auestad <cato@timeanddate.com>
+ *
+ */
 class Authentication {
 	private String _accessKey;
 	private String _secretKey;
@@ -24,18 +29,15 @@ class Authentication {
 		_serviceName = serviceName;
 	}
 
-	Map<String, String> getAuthenticationArgs() throws SignatureException,
-			UnsupportedEncodingException {
+	Map<String, String> getAuthenticationArgs() throws AuthenticationException {
 		return getArgs(null);
 	}
 
-	Map<String, String> getAuthenticationArgs(Map<String, String> seed)
-			throws SignatureException, UnsupportedEncodingException {
+	Map<String, String> getAuthenticationArgs(Map<String, String> seed) throws AuthenticationException {
 		return getArgs(seed);
 	}
 
-	private Map<String, String> getArgs(Map<String, String> seed)
-			throws SignatureException, UnsupportedEncodingException {
+	private Map<String, String> getArgs(Map<String, String> seed) throws AuthenticationException {
 		Map<String, String> dict = new HashMap<String, String>(
 				seed != null ? seed : new HashMap<String, String>());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
@@ -52,7 +54,7 @@ class Authentication {
 			byte[] rawHmac = mac.doFinal(message.getBytes());
 			signature = DatatypeConverter.printBase64Binary(rawHmac);
 		} catch (Exception e) {
-			throw new SignatureException("Failed to generate HMAC: "
+			throw new AuthenticationException("Failed to generate HMAC: "
 					+ e.getMessage());
 		}
 

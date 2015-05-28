@@ -7,6 +7,11 @@ import org.w3c.dom.NodeList;
 import com.timeanddate.services.common.TimeSpan;
 import com.timeanddate.services.common.XmlUtils;
 
+/**
+ * 
+ * @author Cato Auestad <cato@timeanddate.com>
+ *
+ */
 public class TADTimezone {
 	private String _abbrevation;
 	private String _name;

@@ -3,10 +3,9 @@ package com.timeanddate.services;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URISyntaxException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.security.SignatureException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.EnumSet;
@@ -18,13 +17,13 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import com.timeanddate.services.common.AuthenticationException;
 import com.timeanddate.services.common.IPredicate;
 import com.timeanddate.services.common.ServerSideException;
 import com.timeanddate.services.common.StringUtils;
@@ -56,11 +55,11 @@ public class HolidaysService extends BaseService {
 	 *            Access key.
 	 * @param secretKey
 	 *            Secret key.
-	 * @throws SignatureException
-	 * @throws UnsupportedEncodingException
+	 * @throws AuthenticationException 
+	 * 			  Encryption of the authentication failed 
 	 */
 	public HolidaysService(String accessKey, String secretKey)
-			throws SignatureException, UnsupportedEncodingException {
+			throws AuthenticationException {
 		super(accessKey, secretKey, "holidays");
 	}
 
@@ -74,16 +73,12 @@ public class HolidaysService extends BaseService {
 	 * @param year
 	 *            The year for which the holidays should be retrieved.
 	 * @return List of holidays for a given country
-	 * @throws DOMException
-	 * @throws ParserConfigurationException
-	 * @throws SAXException
-	 * @throws IOException
-	 * @throws ServerSideException
-	 * @throws URISyntaxException
+	 * @throws ServerSideException 
+	 * 			  The server produced an error message
+	 * @throws IllegalArgumentException 
+	 * 			  A required argument was not as expected
 	 */
-	public List<Holiday> holidaysForCountry(String countryCode, int year)
-			throws DOMException, ParserConfigurationException, SAXException,
-			IOException, ServerSideException, URISyntaxException {
+	public List<Holiday> holidaysForCountry(String countryCode, int year) throws IllegalArgumentException, ServerSideException {
 		if (countryCode != null && !countryCode.isEmpty() && year <= 0)
 			throw new IllegalArgumentException(
 					"A required argument is null or empty");
@@ -99,16 +94,12 @@ public class HolidaysService extends BaseService {
 	 *            Specify the ISO3166-1-alpha-2 Country Code for which you would
 	 *            like to retrieve the list of holidays.
 	 * @return
-	 * @throws DOMException
-	 * @throws ParserConfigurationException
-	 * @throws SAXException
-	 * @throws IOException
-	 * @throws ServerSideException
-	 * @throws URISyntaxException
+	 * @throws ServerSideException 
+	 * 			  The server produced an error message
+	 * @throws IllegalArgumentException 
+	 * 			  A required argument was not as expected
 	 */
-	public List<Holiday> holidaysForCountry(String country)
-			throws DOMException, ParserConfigurationException, SAXException,
-			IOException, ServerSideException, URISyntaxException {
+	public List<Holiday> holidaysForCountry(String country) throws IllegalArgumentException, ServerSideException {
 		if (country == null || (country != null && !country.isEmpty()))
 			throw new IllegalArgumentException(
 					"A required argument is null or empty");
@@ -117,15 +108,20 @@ public class HolidaysService extends BaseService {
 				Calendar.getInstance().get(Calendar.YEAR));
 	}
 
-	private List<Holiday> retrieveHolidays(String country, int year)
-			throws DOMException, ParserConfigurationException, SAXException,
-			IOException, ServerSideException, URISyntaxException {
+	private List<Holiday> retrieveHolidays(String country, int year) throws ServerSideException {
 		Map<String, String> arguments = getArguments(country, year);
-		String query = UriUtils.BuildUriString(arguments);
-
-		URL uri = new URL(Constants.EntryPoint + ServiceName + query);
-		WebClient client = new WebClient();
-		String result = client.downloadString(uri);
+		String result = new String();
+		
+		try {
+			String query = UriUtils.BuildUriString(arguments);
+			URL uri = new URL(Constants.EntryPoint + ServiceName + query);
+			WebClient client = new WebClient();
+			result = client.downloadString(uri);
+		} catch (UnsupportedEncodingException | MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		XmlUtils.checkForErrors(result);
 		return fromXml(result);
 	}
@@ -162,21 +158,25 @@ public class HolidaysService extends BaseService {
 		return args;
 	}
 
-	private static List<Holiday> fromXml(String result)
-			throws ParserConfigurationException, SAXException, IOException,
-			DOMException, URISyntaxException {
+	private static List<Holiday> fromXml(String result) {
 		ArrayList<Holiday> list = new ArrayList<Holiday>();
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder builder = factory.newDocumentBuilder();
-		ByteArrayInputStream stream = new ByteArrayInputStream(
-				result.getBytes(StandardCharsets.UTF_8));
-		Document document = builder.parse(stream);
-		Element root = document.getDocumentElement();
+		
+		try {
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			ByteArrayInputStream stream = new ByteArrayInputStream(
+					result.getBytes(StandardCharsets.UTF_8));
+			Document document = builder.parse(stream);
+			Element root = document.getDocumentElement();
 
-		NodeList nodes = root.getElementsByTagName("holiday");
+			NodeList nodes = root.getElementsByTagName("holiday");
 
-		for (Node node : XmlUtils.asList(nodes)) {
-			list.add(Holiday.fromNode(node));
+			for (Node node : XmlUtils.asList(nodes)) {
+				list.add(Holiday.fromNode(node));
+			}
+		} catch (ParserConfigurationException | SAXException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 		return list;

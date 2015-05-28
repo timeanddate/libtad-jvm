@@ -18,6 +18,11 @@ import com.timeanddate.services.dataTypes.time.TADDateTime;
 import com.timeanddate.services.dataTypes.time.TADTime;
 import com.timeanddate.services.dataTypes.time.TimeChange;
 
+/**
+ * 
+ * @author Cato Auestad <cato@timeanddate.com>
+ *
+ */
 public class Location {
 	private String _id;
 	private Geo _geography;
@@ -67,7 +72,7 @@ public class Location {
 		_astronomy = new ArrayList<Astronomy>();
 	}
 
-	public static Location fromNode(Node node) throws Exception {
+	public static Location fromNode(Node node) {
 		Location location = new Location();
 		NamedNodeMap attr = node.getAttributes();
 		Node id = attr.getNamedItem("id");
@@ -108,8 +113,7 @@ public class Location {
 		return list;
 	}
 
-	private static List<Astronomy> handleAstronomy(NodeList node)
-			throws Exception {
+	private static List<Astronomy> handleAstronomy(NodeList node) {
 		List<Astronomy> list = new ArrayList<Astronomy>();
 
 		for (Node n : XmlUtils.asList(node)) {
@@ -120,8 +124,7 @@ public class Location {
 		return list;
 	}
 
-	public TimeSpan getUTCOffsetFromLocalTime(TADDateTime localTime)
-			throws Exception {
+	public TimeSpan getUTCOffsetFromLocalTime(TADDateTime localTime) throws MissingTimeChangesException, QueriedDateOutOfRangeException, LocalTimeDoesNotExistException {
 		if (_timeChanges == null
 				|| (_timeChanges != null && _timeChanges.isEmpty()))
 			throw new MissingTimeChangesException(
@@ -152,7 +155,7 @@ public class Location {
 	}
 
 	private static TimeChange getTimeChangeForLocalTime(
-			List<TimeChange> changes, TADDateTime localTime) throws Exception {
+			List<TimeChange> changes, TADDateTime localTime) throws LocalTimeDoesNotExistException  {
 		TimeChange timeChange = null;
 		int numberOfChanges = changes.size() - 1;
 		for (int i = 0; i <= numberOfChanges; i++) {

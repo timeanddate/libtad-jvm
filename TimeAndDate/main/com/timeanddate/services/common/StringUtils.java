@@ -9,6 +9,11 @@ import com.timeanddate.services.dataTypes.astro.AstronomyEventClass;
 import com.timeanddate.services.dataTypes.astro.AstronomyEventCode;
 import com.timeanddate.services.dataTypes.holidays.HolidayType;
 
+/**
+ * 
+ * @author Cato Auestad <cato@timeanddate.com>
+ *
+ */
 public class StringUtils {
 	public static String BoolToNum(boolean bool) {
 		return bool ? "1" : "0";
@@ -102,8 +107,7 @@ public class StringUtils {
 		return null;
 	}
 
-	public static AstronomyEventCode resolveAstronomyEventCode(String eventCode)
-			throws Exception {
+	public static AstronomyEventCode resolveAstronomyEventCode(String eventCode) throws MalformedXMLException {
 		switch (eventCode) {
 		case "twi18_start":
 			return AstronomyEventCode.AstronomicalTwilightStarts;
@@ -134,7 +138,7 @@ public class StringUtils {
 		case "thirdquarter":
 			return AstronomyEventCode.ThirdQuarter;
 		default:
-			throw new Exception(
+			throw new MalformedXMLException(
 					"EventCode does not conform to enum AstronomyEventCode");
 		}
 	}

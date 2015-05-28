@@ -13,6 +13,11 @@ import com.timeanddate.services.dataTypes.time.TADTimezone;
 import com.timeanddate.services.dataTypes.time.TimeChange;
 import com.timeanddate.services.dataTypes.places.Region;
 
+/**
+ * 
+ * @author Cato Auestad <cato@timeanddate.com>
+ *
+ */
 public class DST {
 	public Region _region;
 	public TADTimezone _standardTimezone;

@@ -3,6 +3,11 @@ package com.timeanddate.services.dataTypes.time;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
+/**
+ * 
+ * @author Cato Auestad <cato@timeanddate.com>
+ *
+ */
 public class TimeChange {
 	private int _newDaylightSavingTime = -1;
 	private int _newTimezoneOffset = -1;
