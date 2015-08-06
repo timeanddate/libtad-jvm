@@ -8,7 +8,7 @@ Time and Date APIs support looking up several different locations and IDs. As of
 * Coordinates (e.g. "+59.743+10.204")
 * Airports (e.g. "a-ENZV")
 
-The class [LocationId](http://services.timeanddate.com/api/doc/v2/type-locationid.html/) is used to set the appropriate location ID. Airports categorize the same way as textual ID.
+The class [LocationId](http://services.timeanddate.com/api/doc/v2/type-locationid.html) is used to set the appropriate location ID. Airports categorize the same way as textual ID.
 
 An access key and a secret key is required to use the API. If you are not already a Time and Date API user, please see our [API offers](https://services.timeanddate.com/api/packages/) to get a free 3 month trial. For more information, see our [API Services page](https://services.timeanddate.com/).
  
@@ -63,7 +63,7 @@ Convert time from a location:
         ConvertTimeService service = new ConvertTimeService('accessKey', 'secretKey');
         ConvertedTimes convertedTime = service.convertTime(place, date);
 
-Convert time from a location using an [ISO 8601](http://services.timeanddate.com/api/doc/v2/type-isotime.html/)-string:
+Convert time from a location using an [ISO 8601](http://services.timeanddate.com/api/doc/v2/type-isotime.html)-string:
 
         ...
         ConvertedTimes convertedTime = service.convertTime(place, "2015-04-21T16:45:00");
@@ -103,12 +103,12 @@ Get daylight saving time for specified year:
         DaylightSavingTimeService service = new DSTService('accessKey', 'secretKey');
         List<DST> result = service.getDaylightSavingTime(2014);
 
-Get daylight saving time for specified [ISO3166-1 (Alpha2)](http://services.timeanddate.com/api/doc/v2/type-isocountry.html/) country code:
+Get daylight saving time for specified [ISO3166-1 (Alpha2)](http://services.timeanddate.com/api/doc/v2/type-isocountry.html) country code:
 
         DaylightSavingTimeService service = new DSTService('accessKey', 'secretKey');
         List<DST> result = service.getDaylightSavingTime("no");
 
-Get daylight saving time for specified [ISO3166-1 (Alpha2)](http://services.timeanddate.com/api/doc/v2/type-isocountry.html/) country code and year:
+Get daylight saving time for specified [ISO3166-1 (Alpha2)](http://services.timeanddate.com/api/doc/v2/type-isocountry.html) country code and year:
 
         DaylightSavingTimeService service = new DSTService('accessKey', 'secretKey');
         List<DST> result = service.getDaylightSavingTime("no", 2014);
@@ -167,13 +167,13 @@ Other options:
 Holidays Service
 --------------------------------------
 
-Get all holidays for a country by [ISO3166-1 (Alpha2)](http://services.timeanddate.com/api/doc/v2/type-isocountry.html/) country code:
+Get all holidays for a country by [ISO3166-1 (Alpha2)](http://services.timeanddate.com/api/doc/v2/type-isocountry.html) country code:
 
         String country = "no";
         HolidaysService service = new HolidaysService('accessKey', 'secretKey');
         List<Holiday> result = service.getHolidaysForCountry(country);
 
-Get all holidays for a country by year and [ISO3166-1 (Alpha2)](http://services.timeanddate.com/api/doc/v2/type-isocountry.html/) country code:
+Get all holidays for a country by year and [ISO3166-1 (Alpha2)](http://services.timeanddate.com/api/doc/v2/type-isocountry.html) country code:
 
         String country = "no";
         int year = 2014;
