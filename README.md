@@ -108,7 +108,7 @@ Get daylight saving time for a specified [ISO3166-1 (Alpha2)](http://services.ti
         DaylightSavingTimeService service = new DSTService('accessKey', 'secretKey');
         List<DST> result = service.getDaylightSavingTime("no");
 
-Get daylight saving time for specified [ISO3166-1 (Alpha2)](http://services.timeanddate.com/api/doc/v2/type-isocountry.html) country code and year:
+Get daylight saving time for a specified [ISO3166-1 (Alpha2)](http://services.timeanddate.com/api/doc/v2/type-isocountry.html) country code and year:
 
         DaylightSavingTimeService service = new DSTService('accessKey', 'secretKey');
         List<DST> result = service.getDaylightSavingTime("no", 2014);
