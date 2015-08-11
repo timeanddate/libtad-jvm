@@ -15,14 +15,14 @@ An access key and a secret key is required to use the API. If you are not alread
 Astronomy Service
 --------------------------------------
   
-Get astronomy information for place on date by textual ID:
+Get astronomy information for a place on a date by textual ID:
          
          LocationId place = new LocationId("usa/anchorage");
          TADDateTime date = new TADDateTime(2015, 1, 1);
          AstronomyService service = new AstronomyService('accessKey', 'secretKey');
          List<AstronomyLocation> astroInfo = service.getAstronomicalInfo(AstronomyObjectType.Sun, place, date);
          
-Get astronomy information for place between dates by numeric ID:
+Get astronomy information for a place between two dates by numeric ID:
  
          LocationId place = new LocationId(187);
          TADDateTime startDate = new TADDateTime(2015, 1, 1);
@@ -98,12 +98,12 @@ Get all daylight saving times:
         DaylightSavingTimeService service = new DSTService('accessKey', 'secretKey');
         List<DST> allDST = service.getDaylightSavingTime();
 
-Get daylight saving time for specified year:
+Get daylight saving time for a specified year:
 
         DaylightSavingTimeService service = new DSTService('accessKey', 'secretKey');
         List<DST> result = service.getDaylightSavingTime(2014);
 
-Get daylight saving time for specified [ISO3166-1 (Alpha2)](http://services.timeanddate.com/api/doc/v2/type-isocountry.html) country code:
+Get daylight saving time for a specified [ISO3166-1 (Alpha2)](http://services.timeanddate.com/api/doc/v2/type-isocountry.html) country code:
 
         DaylightSavingTimeService service = new DSTService('accessKey', 'secretKey');
         List<DST> result = service.getDaylightSavingTime("no");
@@ -129,7 +129,7 @@ Other options:
 Dial Code Service
 --------------------------------------
 
-Get dial code to a location:
+Get dial code for a location:
 
         LocationId osloId = new LocationId("norway/oslo");
         DialCodeService service = new DialCodeService('accessKey', 'secretKey');
@@ -203,7 +203,7 @@ Other options:
 Time Service
 --------------------------------------
 
-Get current time for place:
+Get current time for a place:
 
         LocationId place = new LocationId(179);
         TimeService service = new TimeService('accessKey', 'secretKey');
@@ -232,7 +232,7 @@ Other options:
 Location data type:
 --------------------------------------
 
-Get UTC offset for local time (only applicable if service.setIncludeListOfTimeChanges has been activated):
+Get UTC offset for a local time (only applicable if service.setIncludeListOfTimeChanges has been activated):
 
 		TADDateTime localTime = new TADDateTime(2015, 6, 7);
 		Location sampleLoc = result.get(0);
