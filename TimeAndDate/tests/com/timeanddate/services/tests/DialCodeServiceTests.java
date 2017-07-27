@@ -1,5 +1,6 @@
 package com.timeanddate.services.tests;
 
+import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
@@ -115,8 +116,8 @@ public class DialCodeServiceTests {
 				us = loc.getGeography().getCountry().getName();
 		}
 
-		assertNotEquals("", norway);
-		assertNotEquals("", us);
+		assertThat(norway, not(""));
+		assertThat(norway, not(""));
 	}
 
 	@Test

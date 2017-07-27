@@ -1,5 +1,6 @@
 package com.timeanddate.services.tests;
 
+import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.*;
 
 import java.util.EnumSet;
@@ -314,7 +315,7 @@ public class AstronomyServiceTests {
 							.getDayOfMonth());
 
 					for (AstronomyDayEvent ev : day.getEvents()) {
-						assertNotEquals(1, ev.getISOTime().getYear());
+						assertThat(ev.getISOTime().getYear(), not(1));
 						assertEquals(1, ev.getISOTime().getMonth());
 					}
 				}

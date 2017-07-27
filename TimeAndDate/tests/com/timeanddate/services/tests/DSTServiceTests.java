@@ -19,7 +19,7 @@ public class DSTServiceTests {
 	public void Calling_DstService_Should_ReturnAllDst() 
 			throws AuthenticationException, ServerSideException {
 		// Arrage
-		int expectedReturnedCount = 138;
+		int expectedReturnedCount = 128;
 
 		// Act
 		DSTService service = new DSTService(
@@ -38,7 +38,7 @@ public class DSTServiceTests {
 			throws AuthenticationException, ServerSideException {
 		// Arrage
 		int year = 2014;
-		int expectedReturnedCount = 138;
+		int expectedReturnedCount = 132;
 
 		// Act
 		DSTService service = new DSTService(
@@ -198,7 +198,7 @@ public class DSTServiceTests {
 
 		// Assert
 		assertTrue(service.getIncludeOnlyDstCountries());
-		assertEquals(137, result.size());
+		assertEquals(132, result.size());
 
 		HasValidSampleCountry(sampleCountry);
 	}
@@ -227,7 +227,7 @@ public class DSTServiceTests {
 
 		// Assert
 		assertFalse(service.getIncludeOnlyDstCountries());
-		assertEquals(320, result.size());
+		assertEquals(348, result.size());
 		assertTrue(dstAllYear.size() > 0);
 		assertTrue(noDstAllYear.size() > 0);
 
