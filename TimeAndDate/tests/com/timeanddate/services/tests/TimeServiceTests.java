@@ -211,7 +211,7 @@ public class TimeServiceTests {
 		String abbr = firstLocation.getTime().getTimezone().getAbbrevation();
 
 		// Assert
-		assert ((abbr == expectedTimezoneAbbr1) | (abbr == expectedTimezoneAbbr2));
+		assertTrue (abbr.equals(expectedTimezoneAbbr1) || abbr.equals(expectedTimezoneAbbr2));
 		assertEquals(expectedTimezoneName, firstLocation.getTime().getTimezone().getName());
 		assertEquals(expectedOffsetHour,
 				firstLocation.getTime().getTimezone().getOffset().getHours());
@@ -477,7 +477,7 @@ public class TimeServiceTests {
 		QueriedDateOutOfRangeException, LocalTimeDoesNotExistException {
 		// Arrange
 		int placeId = 187;
-		TADDateTime localTime = new TADDateTime(2015, 3, 29, 2, 30, 0);
+		TADDateTime localTime = new TADDateTime(2017, 3, 26, 2, 30, 0);
 
 		// Act
 		TimeService timeservice = new TimeService(Config.AccessKey,
@@ -515,9 +515,11 @@ public class TimeServiceTests {
 		QueriedDateOutOfRangeException, LocalTimeDoesNotExistException {
 		// Arrange
 		int placeId = 187;
-		TADDateTime localWinterTime = new TADDateTime(2015, 2, 15, 2, 30, 0);
-		TADDateTime localSummerTime = new TADDateTime(2015, 7, 15, 2, 30, 0);
-		TADDateTime localFallTime = new TADDateTime(2015, 11, 15, 2, 30, 0);
+		int year = Calendar.getInstance().get(Calendar.YEAR);
+
+		TADDateTime localWinterTime = new TADDateTime(year, 2, 15, 2, 30, 0);
+		TADDateTime localSummerTime = new TADDateTime(year, 7, 15, 2, 30, 0);
+		TADDateTime localFallTime = new TADDateTime(year, 11, 15, 2, 30, 0);
 
 		// Act
 		TimeService timeservice = new TimeService(Config.AccessKey,
@@ -545,12 +547,15 @@ public class TimeServiceTests {
 	public void calling_TimeService_And_GettingUTCOffset_WithEdgeCases_Should_ReturnCorrectOffset() 
 		throws AuthenticationException, ServerSideException, MissingTimeChangesException, 
 		QueriedDateOutOfRangeException, LocalTimeDoesNotExistException {
+
 		// Arrange
 		String placeId = "usa/anchorage";
-		TADDateTime beforeDstStart = new TADDateTime(2015, 3, 8, 1, 0, 0);
-		TADDateTime afterDstStart = new TADDateTime(2015, 3, 8, 3, 0, 0);
-		TADDateTime beforeDstEnd = new TADDateTime(2015, 11, 1, 1, 0, 0);
-		TADDateTime afterDstEnd = new TADDateTime(2015, 11, 1, 2, 0, 0);
+		int year = Calendar.getInstance().get(Calendar.YEAR);
+
+		TADDateTime beforeDstStart = new TADDateTime(year, 3, 12, 1, 0, 0);
+		TADDateTime afterDstStart = new TADDateTime(year, 3, 12, 3, 0, 0);
+		TADDateTime beforeDstEnd = new TADDateTime(year, 11, 5, 1, 0, 0);
+		TADDateTime afterDstEnd = new TADDateTime(year, 11, 5, 2, 0, 0);
 
 		// Act
 		TimeService timeservice = new TimeService(Config.AccessKey,
