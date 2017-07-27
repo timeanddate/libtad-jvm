@@ -71,7 +71,7 @@ public class TimeChange {
 		Node oldlocal = attr.getNamedItem("oldlocaltime");
 		Node newlocal = attr.getNamedItem("newlocaltime");
 
-		if (newdst != null) {
+		if (newdst != null  && newdst.getTextContent() != "") {
 			change._newDaylightSavingTime = Integer.parseInt(newdst
 					.getTextContent());
 		}
@@ -81,7 +81,7 @@ public class TimeChange {
 					.getTextContent());
 		}
 
-		if (newoffset != null) {
+		if (newoffset != null  && newoffset.getTextContent() != "") {
 			change._newTotalOffset = Integer
 					.parseInt(newoffset.getTextContent());
 		}
