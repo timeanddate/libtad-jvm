@@ -25,6 +25,7 @@ public class WebClient {
 			connection.setRequestProperty("Content-Length",
 					"" + Integer.toString(url.getQuery().getBytes().length));
 			connection.setRequestProperty("Content-Language", "en-US");
+			connection.setRequestProperty("User-Agent", "libtad-jvm-1.0.0");
 
 			connection.setUseCaches(false);
 			connection.setDoInput(true);
