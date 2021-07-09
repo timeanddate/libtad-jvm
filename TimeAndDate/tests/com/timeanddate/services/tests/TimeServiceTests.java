@@ -68,7 +68,6 @@ public class TimeServiceTests {
 		LocationId locationId = new LocationId(osloCoords);
 		String expectedId = String.format(Locale.US, "+%1$.3f+%2$.3f",
 				osloCoords.getLatitude(), osloCoords.getLongitude());
-		System.out.println(expectedId);
 
 		// Act
 		TimeService timeservice = new TimeService(Config.AccessKey,
