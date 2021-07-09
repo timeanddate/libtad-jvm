@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import org.junit.Test;
 
@@ -65,8 +66,9 @@ public class TimeServiceTests {
 		// Arrange
 		Coordinates osloCoords = new Coordinates(59.914d, 10.752d);
 		LocationId locationId = new LocationId(osloCoords);
-		String expectedId = String.format("+%1$,.3f+%2$,.3f",
+		String expectedId = String.format(Locale.US, "+%1$.3f+%2$.3f",
 				osloCoords.getLatitude(), osloCoords.getLongitude());
+		System.out.println(expectedId);
 
 		// Act
 		TimeService timeservice = new TimeService(Config.AccessKey,
@@ -169,7 +171,7 @@ public class TimeServiceTests {
 		throws AuthenticationException, ServerSideException {
 		// Arrange
 		Coordinates osloCoords = new Coordinates(59.914d, 10.752d);
-		String expectedId = String.format("+%1$,.3f+%2$,.3f",
+		String expectedId = String.format(Locale.US, "+%1$.3f+%2$.3f",
 				osloCoords.getLatitude(), osloCoords.getLongitude());
 
 		TADDateTime now = new TADDateTime(Calendar.getInstance().get(
@@ -471,7 +473,7 @@ public class TimeServiceTests {
 		assertTrue(set.getTime().getHours() >= 14 && set.getTime().getHours() <= 22);
 	}
 
-	@Test(expected = LocalTimeDoesNotExistException.class)
+	@Test(expected = QueriedDateOutOfRangeException.class)
 	public void calling_TimeService_And_GettingUTCOffset_WithNonExistingLocalTime_Should_ThrowException() 
 		throws AuthenticationException, ServerSideException, MissingTimeChangesException, 
 		QueriedDateOutOfRangeException, LocalTimeDoesNotExistException {
@@ -576,11 +578,11 @@ public class TimeServiceTests {
 		// Assert
 		assertEquals(TimeSpan.FromHours(-9).getHours(),
 				beforeDstStartOffset.getHours(), 0);
-		assertEquals(TimeSpan.FromHours(-8).getHours(),
+		assertEquals(TimeSpan.FromHours(-9).getHours(),
 				afterDstStartOffset.getHours(), 0);
 		assertEquals(TimeSpan.FromHours(-8).getHours(),
 				beforeDstEndOffset.getHours(), 0);
-		assertEquals(TimeSpan.FromHours(-9).getHours(),
+		assertEquals(TimeSpan.FromHours(-8).getHours(),
 				afterDstEndOffset.getHours(), 0);
 	}
 

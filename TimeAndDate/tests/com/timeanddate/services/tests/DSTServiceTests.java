@@ -19,7 +19,7 @@ public class DSTServiceTests {
 	public void Calling_DstService_Should_ReturnAllDst() 
 			throws AuthenticationException, ServerSideException {
 		// Arrage
-		int expectedReturnedCount = 128;
+		int expectedReturnedCount = 121;
 
 		// Act
 		DSTService service = new DSTService(
@@ -207,7 +207,7 @@ public class DSTServiceTests {
 	public void Calling_DstService_WithoutOnlyDstCountries_Should_ReturnAllCountries() 
 			throws AuthenticationException, ServerSideException {
 		// Arrage
-		int year = 2014;
+		int year = 2021;
 
 		// Act
 		DSTService service = new DSTService(
@@ -227,7 +227,7 @@ public class DSTServiceTests {
 
 		// Assert
 		assertFalse(service.getIncludeOnlyDstCountries());
-		assertEquals(348, result.size());
+		assertEquals(350, result.size());
 		assertTrue(dstAllYear.size() > 0);
 		assertTrue(noDstAllYear.size() > 0);
 

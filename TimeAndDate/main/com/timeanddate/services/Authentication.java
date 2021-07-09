@@ -8,7 +8,7 @@ import java.text.*;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
-import javax.xml.bind.DatatypeConverter;
+import jakarta.xml.bind.DatatypeConverter;
 
 import com.timeanddate.services.common.AuthenticationException;
 
