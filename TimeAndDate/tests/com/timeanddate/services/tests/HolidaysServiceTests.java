@@ -29,7 +29,7 @@ public class HolidaysServiceTests {
 		String expectedHoliday = "New Year's Day";
 		String expectedUid = "0007d600000007de";
 		URI expectedUrl = new URI(
-				"http://www.timeanddate.com/holidays/us/new-year-day");
+				"https://www.timeanddate.com/holidays/us/new-year-day");
 		int expectedId = 2006;
 
 		TADDateTime expectedDate = new TADDateTime(2014, 1, 1);
@@ -59,8 +59,8 @@ public class HolidaysServiceTests {
 	public void Calling_HolidaysService_WithCountry_And_WithYear_Should_ReturnHolidaysWithStates() throws AuthenticationException, ServerSideException {
 		// Arrange
 		String country = "us";
-		int year = 2014;
-		String expectedState = "Alabama";
+		int year = 2021;
+		String expectedState = "District of Columbia";
 
 		// Act
 		HolidaysService holidaysService = new HolidaysService(Config.AccessKey,
@@ -89,7 +89,7 @@ public class HolidaysServiceTests {
 		String country = "us";
 		String expectedType = "Christian";
 		int year = 2014;
-		int expectedCount = 21;
+		int expectedCount = 25;
 
 		// Act
 		HolidaysService holidaysService = new HolidaysService(Config.AccessKey,
