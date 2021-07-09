@@ -59,8 +59,8 @@ public class HolidaysServiceTests {
 	public void Calling_HolidaysService_WithCountry_And_WithYear_Should_ReturnHolidaysWithStates() throws AuthenticationException, ServerSideException {
 		// Arrange
 		String country = "us";
-		int year = 2014;
-		String expectedState = "Alabama";
+		int year = 2021;
+		String expectedState = "District of Columbia";
 
 		// Act
 		HolidaysService holidaysService = new HolidaysService(Config.AccessKey,
@@ -74,13 +74,13 @@ public class HolidaysServiceTests {
 				holidaysWithSpecificStates.add(h);
 		}
 
-		//Holiday firstHoliday = holidaysWithSpecificStates.get(0);
-		//HolidayState firstState = firstHoliday.getStates().get(0);
+		Holiday firstHoliday = holidaysWithSpecificStates.get(0);
+		HolidayState firstState = firstHoliday.getStates().get(0);
 
 		// Assert
-		//assertNotNull(firstHoliday);
-		//assertNotNull(firstHoliday.getStates());
-		//assertEquals(expectedState, firstState.getName());
+		assertNotNull(firstHoliday);
+		assertNotNull(firstHoliday.getStates());
+		assertEquals(expectedState, firstState.getName());
 	}
 
 	@Test
