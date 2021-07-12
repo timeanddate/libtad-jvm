@@ -8,6 +8,7 @@ import java.util.List;
 import com.timeanddate.services.dataTypes.astro.AstronomyEventClass;
 import com.timeanddate.services.dataTypes.astro.AstronomyEventCode;
 import com.timeanddate.services.dataTypes.holidays.HolidayType;
+import com.timeanddate.services.dataTypes.onthisday.EventType;
 
 /**
  * 
@@ -73,6 +74,19 @@ public class StringUtils {
 				new HolidayTuple("christian", HolidayType.CHRISTIAN));
 
 		for (HolidayTuple t : holidays)
+			if (predicate.is(t.EnumRepresentation))
+				return t;
+
+		return null;
+	}
+
+	public static EventTuple resolveEventTypes(IPredicate<EventType> predicate) {
+		List<EventTuple> events = Arrays.<EventTuple> asList(
+				new EventTuple("events", EventType.EVENTS),
+				new EventTuple("births", EventType.BIRTHS),
+				new EventTuple("deaths", EventType.DEATHS));
+
+		for (EventTuple t: events)
 			if (predicate.is(t.EnumRepresentation))
 				return t;
 
