@@ -16,7 +16,6 @@ import com.timeanddate.services.dataTypes.time.TADTime;
  *
  */
 public class Period {
-	private IncludeExclude _includeExclude;
 	private int _includedDays;
 	private int _calendarDays;
 	private int _skippedDays;
@@ -25,34 +24,51 @@ public class Period {
 	private WeekdaysType _weekdays;
 	private BusinessHoliday _holidays;
 
-	public IncludeExclude getIncludeOrExclude() {
-		return _includeExclude;
-	}
-
+	/**
+	 * Number of days calculated.
+	 */
 	public int getIncludedDays() {
 		return _includedDays;
 	}
 
+	/**
+	 * Number of calendar days in calculated period.
+	 */
 	public int getCalendarDays() {
 		return _calendarDays;
 	}
 
+	/**
+	 * Number of days which was skipped in the calculated period.
+	 */
 	public int getSkippedDays() {
 		return _skippedDays;
 	}
 
+	/**
+	 * The date the calculation started from.
+	 */
 	public TADTime getStartDate() {
 		return _startDate;
 	}
 
+	/**
+	 * The date the calculation ended on.
+	 */
 	public TADTime getEndDate() {
 		return _endDate;
 	}
 
+	/**
+	 * The spread of excluded or included weekdays in includeddays.
+	 */
 	public WeekdaysType getWeekdays() {
 		return _weekdays;
 	}
 
+	/**
+	 * Holidays which occur in the requested period.
+	 */
 	public BusinessHoliday getHolidays() {
 		return _holidays;
 	}

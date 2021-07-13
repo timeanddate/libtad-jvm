@@ -22,38 +22,65 @@ public class WeekdaysType {
 	private int _saturdayCount;
 	private int _sundayCount;
 
+	/**
+	 * Specifies whether or not the weekdays counted were part of an included or excluded filter.
+	 */
 	public IncludeExclude getFilterType() {
 		return _filterType;
 	}
 
+	/**
+	 * How many days in total have been counted.
+	 */
 	public int getTotalCount() {
 		return _totalCount;
 	}
 
+	/**
+	 * Count for Mondays.
+	 */
 	public int getMondayCount() {
 		return _mondayCount;
 	}
 
+	/**
+	 * Count for Tuesdays.
+	 */
 	public int getTuesdayCount() {
 		return _tuesdayCount;
 	}
 
+	/**
+	 * Count for Wednesdays.
+	 */
 	public int getWednesdayCount() {
 		return _wednesdayCount;
 	}
 
+	/**
+	 * Count for Thursdays.
+	 */
 	public int getThursdayCount() {
 		return _thursdayCount;
 	}
 
+	/**
+	 * Count for Fridays.
+	 */
 	public int getFridayCount() {
 		return _fridayCount;
 	}
 
+	/**
+	 * Count for Saturdays.
+	 */
 	public int getSaturdayCount() {
 		return _saturdayCount;
 	}
 
+	/**
+	 * Count for Sundays.
+	 */
 	public int getSundayCount() {
 		return _sundayCount;
 	}

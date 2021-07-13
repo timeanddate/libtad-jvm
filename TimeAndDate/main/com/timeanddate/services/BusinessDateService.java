@@ -38,8 +38,8 @@ public class BusinessDateService extends BaseService {
 	private EnumSet<BusinessDaysFilterType> _filter;
 
 	/**
-	 * The converttime service can be used to convert any time from UTC or any
-	 * of the supported locations to any other of the supported locations.
+	 * The businessdate service can be used to find a business
+	 * date from a specified number of days.
 	 *
 	 * @param accessKey
 	 *            Access key.
@@ -79,11 +79,44 @@ public class BusinessDateService extends BaseService {
 		return _filter;
 	}
 
+
+	/**
+	 * The businessdate service can be used to find a business
+	 * date from a specified number of days.
+	 *
+	 * @param startDate
+	 * 		Start date to calculate from.
+	 * @param days
+	 * 		Days to add. Can be a list of several days.
+	 * @param placeId
+	 * 		The places identifier.
+	 * @return The calculated result and geographical information.
+	 * @throws ServerSideException
+	 * 		The server produced an error message.
+	 * @throws IllegalArgumentExeption
+	 * 		A required argument was not as expected.
+	 */
 	public BusinessDates addDays(TADDateTime startDate, List<Integer> days, LocationId placeId)
 		throws IllegalArgumentException, ServerSideException {
 		return executeBusinessDate("add", startDate, days, placeId);
 	}
 
+	/**
+	 * The businessdate service can be used to find a business
+	 * date from a specified number of days.
+	 *
+	 * @param startDate
+	 * 		Start date to calculate from.
+	 * @param days
+	 * 		Days to add.
+	 * @param placeId
+	 * 		The places identifier.
+	 * @return The calculated result and geographical information.
+	 * @throws ServerSideException
+	 * 		The server produced an error message.
+	 * @throws IllegalArgumentExeption
+	 * 		A required argument was not as expected.
+	 */
 	public BusinessDates addDays(TADDateTime startDate, int days, LocationId placeId)
 		throws IllegalArgumentException, ServerSideException {
 		List<Integer> list = new ArrayList<Integer>();
@@ -92,11 +125,43 @@ public class BusinessDateService extends BaseService {
 		return executeBusinessDate("add", startDate, list, placeId);
 	}
 
+	/**
+	 * The businessdate service can be used to find a business
+	 * date from a specified number of days.
+	 *
+	 * @param startDate
+	 * 		Start date to calculate from.
+	 * @param days
+	 * 		Days to subtract. Can be a list of several days.
+	 * @param placeId
+	 * 		The places identifier.
+	 * @return The calculated result and geographical information.
+	 * @throws ServerSideException
+	 * 		The server produced an error message.
+	 * @throws IllegalArgumentExeption
+	 * 		A required argument was not as expected.
+	 */
 	public BusinessDates subtractDays(TADDateTime startDate, List<Integer> days, LocationId placeId)
 		throws IllegalArgumentException, ServerSideException {
 		return executeBusinessDate("subtract", startDate, days, placeId);
 	}
 
+	/**
+	 * The businessdate service can be used to find a business
+	 * date from a specified number of days.
+	 *
+	 * @param startDate
+	 * 		Start date to calculate from.
+	 * @param days
+	 * 		Days to subtract.
+	 * @param placeId
+	 * 		The places identifier.
+	 * @return The calculated result and geographical information.
+	 * @throws ServerSideException
+	 * 		The server produced an error message.
+	 * @throws IllegalArgumentExeption
+	 * 		A required argument was not as expected.
+	 */
 	public BusinessDates subtractDays(TADDateTime startDate, int days, LocationId placeId)
 		throws IllegalArgumentException, ServerSideException {
 		List<Integer> list = new ArrayList<Integer>();

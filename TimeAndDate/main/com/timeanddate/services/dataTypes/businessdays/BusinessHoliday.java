@@ -21,14 +21,24 @@ public class BusinessHoliday {
 	private int _count;
 	private List<Holiday> _holidays;
 
+	/**
+	 * Either included or excluded, specifying whether or not the holidays
+	 * in the result array were included or excluded when queried.
+	 */
 	public IncludeExclude getIncludeOrExclude() {
 		return _includeExclude;
 	}
 
+	/**
+	 * The number of holidays in the results.
+	 */
 	public int getCount() {
 		return _count;
 	}
 
+	/**
+	 * Holidays which occur in the requested period.
+	 */
 	public List<Holiday> getHolidays() {
 		return _holidays;
 	}
