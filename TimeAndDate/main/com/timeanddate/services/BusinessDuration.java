@@ -52,7 +52,7 @@ public class BusinessDuration {
 
 			if (period != null)
 				for (Node node : XmlUtils.asList(period))
-					duration.Period = com.timeanddate.services.dataTypes.businessdays.Period.fromNode(node);
+					duration.Period = Period.fromNode(node);
 
 		} catch (ParserConfigurationException | SAXException | IOException e) {
 			// TODO Auto-generated catch block
