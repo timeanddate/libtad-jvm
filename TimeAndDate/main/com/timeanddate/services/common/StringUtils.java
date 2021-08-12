@@ -9,6 +9,7 @@ import com.timeanddate.services.dataTypes.astro.AstronomyEventClass;
 import com.timeanddate.services.dataTypes.astro.AstronomyEventCode;
 import com.timeanddate.services.dataTypes.holidays.HolidayType;
 import com.timeanddate.services.dataTypes.onthisday.EventType;
+import com.timeanddate.services.dataTypes.businessdays.BusinessDaysFilterType;
 
 /**
  * 
@@ -45,6 +46,29 @@ public class StringUtils {
 			sb.append(iter.next().toString());
 		}
 		return sb.toString();
+	}
+
+	public static BusinessDaysTuple resolveBusinessDaysFilter(IPredicate<BusinessDaysFilterType> predicate) {
+		List<BusinessDaysTuple> filters = Arrays.<BusinessDaysTuple> asList(
+				new BusinessDaysTuple("all", BusinessDaysFilterType.ALL),
+				new BusinessDaysTuple("mon", BusinessDaysFilterType.MONDAY),
+				new BusinessDaysTuple("tue", BusinessDaysFilterType.TUESDAY),
+				new BusinessDaysTuple("wed", BusinessDaysFilterType.WEDNESDAY),
+				new BusinessDaysTuple("thu", BusinessDaysFilterType.THURSDAY),
+				new BusinessDaysTuple("fri", BusinessDaysFilterType.FRIDAY),
+				new BusinessDaysTuple("sat", BusinessDaysFilterType.SATURDAY),
+				new BusinessDaysTuple("sun", BusinessDaysFilterType.SUNDAY),
+				new BusinessDaysTuple("weekend", BusinessDaysFilterType.WEEKEND),
+				new BusinessDaysTuple("holidays", BusinessDaysFilterType.HOLIDAYS),
+				new BusinessDaysTuple("weekendholidays", BusinessDaysFilterType.WEEKENDHOLIDAYS),
+				new BusinessDaysTuple("none", BusinessDaysFilterType.NONE)
+		);
+
+		for (BusinessDaysTuple t: filters)
+			if (predicate.is(t.EnumRepresentation))
+				return t;
+
+		return null;
 	}
 
 	public static HolidayTuple resolveHolidays(IPredicate<HolidayType> predicate) {
