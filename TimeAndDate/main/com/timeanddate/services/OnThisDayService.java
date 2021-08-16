@@ -30,7 +30,7 @@ import com.timeanddate.services.common.StringUtils;
 import com.timeanddate.services.common.UriUtils;
 import com.timeanddate.services.common.WebClient;
 import com.timeanddate.services.common.XmlUtils;
-import com.timeanddate.services.dataTypes.onthisday.EventType;
+import com.timeanddate.services.dataTypes.onthisday.OTDEventType;
 
 /**
  *
@@ -38,7 +38,7 @@ import com.timeanddate.services.dataTypes.onthisday.EventType;
  *
  */
 public class OnThisDayService extends BaseService {
-	private EnumSet<EventType> _types;
+	private EnumSet<OTDEventType> _types;
 
 	/**
 	 * The onthisday service can be used to retrieve events, births and deaths for
@@ -113,15 +113,15 @@ public class OnThisDayService extends BaseService {
 		return OnThisDayEvents.fromXml(result);
 	}
 
-	public void setEventTypes(EnumSet<EventType> types) {
+	public void setEventTypes(EnumSet<OTDEventType> types) {
 		_types = types;
 	}
 
-	public void addEventType(EventType type) {
+	public void addEventType(OTDEventType type) {
 		_types.add(type);
 	}
 
-	public EnumSet<EventType> getEventTypes() {
+	public EnumSet<OTDEventType> getEventTypes() {
 		return _types;
 	}
 
@@ -154,24 +154,24 @@ public class OnThisDayService extends BaseService {
 			return "";
 
 		ArrayList<String> includedStrings = new ArrayList<String>();
-		for (final EventType type : EventType.values()) {
+		for (final OTDEventType type : OTDEventType.values()) {
 			if (_types.contains(type))
 				includedStrings
-						.add(StringUtils.resolveEventTypes(where.of(type)).Command);
+						.add(StringUtils.resolveOTDEventTypes(where.of(type)).Command);
 		}
 
 		String included = StringUtils.join(includedStrings, ",");
 		return included;
 	}
 
-	private IPredicate<EventType> where = new IPredicate<EventType>() {
-		EventType type;
+	private IPredicate<OTDEventType> where = new IPredicate<OTDEventType>() {
+		OTDEventType type;
 
-		public boolean is(EventType t) {
+		public boolean is(OTDEventType t) {
 			return t == type;
 		}
 
-		public IPredicate<EventType> of(EventType t) {
+		public IPredicate<OTDEventType> of(OTDEventType t) {
 			type = t;
 			return this;
 		}

@@ -17,7 +17,7 @@ import com.timeanddate.services.common.AuthenticationException;
 import com.timeanddate.services.common.ServerSideException;
 import com.timeanddate.services.dataTypes.onthisday.Event;
 import com.timeanddate.services.dataTypes.onthisday.Person;
-import com.timeanddate.services.dataTypes.onthisday.EventType;
+import com.timeanddate.services.dataTypes.onthisday.OTDEventType;
 import com.timeanddate.services.dataTypes.time.TADDateTime;
 
 public class OnThisDayServiceTests {
@@ -62,7 +62,7 @@ public class OnThisDayServiceTests {
 		// Arrange
 		int month = 5;
 		int day = 24;
-		EnumSet<EventType> type = EnumSet.of(EventType.EVENTS);
+		EnumSet<OTDEventType> type = EnumSet.of(OTDEventType.EVENTS);
 
 		// Act
 		OnThisDayService onthisdayService = new OnThisDayService(Config.AccessKey, Config.SecretKey);
@@ -80,7 +80,7 @@ public class OnThisDayServiceTests {
 		// Arrange
 		int month = 5;
 		int day = 24;
-		EnumSet<EventType> type = EnumSet.of(EventType.BIRTHS);
+		EnumSet<OTDEventType> type = EnumSet.of(OTDEventType.BIRTHS);
 
 		// Act
 		OnThisDayService onthisdayService = new OnThisDayService(Config.AccessKey, Config.SecretKey);
@@ -98,7 +98,7 @@ public class OnThisDayServiceTests {
 		// Arrange
 		int month = 5;
 		int day = 24;
-		EnumSet<EventType> type = EnumSet.of(EventType.DEATHS);
+		EnumSet<OTDEventType> type = EnumSet.of(OTDEventType.DEATHS);
 
 		// Act
 		OnThisDayService onthisdayService = new OnThisDayService(Config.AccessKey, Config.SecretKey);

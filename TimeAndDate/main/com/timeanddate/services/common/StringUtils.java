@@ -8,7 +8,7 @@ import java.util.List;
 import com.timeanddate.services.dataTypes.astro.AstronomyEventClass;
 import com.timeanddate.services.dataTypes.astro.AstronomyEventCode;
 import com.timeanddate.services.dataTypes.holidays.HolidayType;
-import com.timeanddate.services.dataTypes.onthisday.EventType;
+import com.timeanddate.services.dataTypes.onthisday.OTDEventType;
 import com.timeanddate.services.dataTypes.businessdays.BusinessDaysFilterType;
 
 /**
@@ -104,13 +104,13 @@ public class StringUtils {
 		return null;
 	}
 
-	public static EventTuple resolveEventTypes(IPredicate<EventType> predicate) {
-		List<EventTuple> events = Arrays.<EventTuple> asList(
-				new EventTuple("events", EventType.EVENTS),
-				new EventTuple("births", EventType.BIRTHS),
-				new EventTuple("deaths", EventType.DEATHS));
+	public static OTDEventTuple resolveOTDEventTypes(IPredicate<OTDEventType> predicate) {
+		List<OTDEventTuple> events = Arrays.<OTDEventTuple> asList(
+				new OTDEventTuple("events", OTDEventType.EVENTS),
+				new OTDEventTuple("births", OTDEventType.BIRTHS),
+				new OTDEventTuple("deaths", OTDEventType.DEATHS));
 
-		for (EventTuple t: events)
+		for (OTDEventTuple t: events)
 			if (predicate.is(t.EnumRepresentation))
 				return t;
 
