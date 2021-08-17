@@ -6,5 +6,53 @@ package com.timeanddate.services.dataTypes.astro;
  *
  */
 public enum AstronomyObjectType {
-	Sun, Moon
+	/// <summary>
+	/// The sun.
+	/// </summary>
+	Sun,
+
+	/// <summary>
+	/// The moon.
+	/// </summary>
+	Moon,
+
+	/// <summary>
+	/// Mercury.
+	/// </summary>
+	Mercury,
+
+	/// <summary>
+	/// Venus.
+	/// </summary>
+	Venus,
+
+	/// <summary>
+	/// Mars.
+	/// </summary>
+	Mars,
+
+	/// <summary>
+	/// Jupiter.
+	/// </summary>
+	Jupiter,
+
+	/// <summary>
+	/// Saturn.
+	/// </summary>
+	Saturn,
+
+	/// <summary>
+	/// Uranus.
+	/// </summary>
+	Uranus,
+
+	/// <summary>
+	/// Neptune.
+	/// </summary>
+	Neptune,
+
+	/// <summary>
+	/// Pluto.
+	/// </summary>
+	Pluto,
 }

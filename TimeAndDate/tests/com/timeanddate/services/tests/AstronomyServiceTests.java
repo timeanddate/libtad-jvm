@@ -397,6 +397,29 @@ public class AstronomyServiceTests {
 	}
 
 	@Test
+	public void Calling_AstronomyService_WithObject_Should_ReturnCorrectObject() 
+		throws AuthenticationException, IllegalArgumentException, ServerSideException {
+		// Arrange
+		TADDateTime startDate = new TADDateTime(2014, 1, 1);
+		LocationId location = new LocationId("norway/oslo");
+
+		// Act
+		for (AstronomyObjectType object : AstronomyObjectType.values()) {
+			AstronomyService service = new AstronomyService(Config.AccessKey,
+				Config.SecretKey);
+			List<AstronomyLocation> result = service.getAstronomicalInfo(object,
+				location, startDate);
+
+			// Assert
+			for (AstronomyLocation loc : result) {
+				for (AstronomyObjectDetails obj : loc.getObjects()) {
+					assertEquals(object, obj.getName());
+				}
+			}
+		}
+	}
+
+	@Test
 	public void Calling_AstronomyService_WithRadiusTime_Should_ReturnsCorrectAstronomyInfo() 
 		throws AuthenticationException, IllegalArgumentException, ServerSideException {
 		// Arrange

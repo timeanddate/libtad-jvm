@@ -48,15 +48,14 @@ public class AstronomyObjectDetails {
 				obj._days.add(AstronomyDay.fromNode(child));
 
 		if (name != null) {
-			String nametxt = name.getTextContent();
+			String nametxt = name.getTextContent().toLowerCase();
 
-			if (!nametxt.equalsIgnoreCase("sun") && !nametxt.equalsIgnoreCase("moon")) {
+			try {
+				obj._name = AstronomyObjectType.valueOf(nametxt.substring(0, 1).toUpperCase() + nametxt.substring(1));
+			} catch (IllegalArgumentException e) {
 				throw new MalformedXMLException(
 						"The XML returned from Time and Date contained an unsupported name: "
 								+ nametxt);
-			} else {
-				obj._name = name.getTextContent().toLowerCase() == "sun" ? AstronomyObjectType.Sun
-						: AstronomyObjectType.Moon;
 			}
 		}
 		return obj;
