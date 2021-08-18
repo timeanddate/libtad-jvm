@@ -82,9 +82,10 @@ public class StringUtils {
 	public static AstronomyEventTuple resolveAstronomyEventClass(
 			IPredicate<AstronomyEventClass> predicate) {
 		List<AstronomyEventTuple> holidays = Arrays
-				.<AstronomyEventTuple> asList(new AstronomyEventTuple("all",
-						AstronomyEventClass.ALL), new AstronomyEventTuple(
-						"daylength", AstronomyEventClass.DAYLENGTH),
+				.<AstronomyEventTuple> asList(
+						new AstronomyEventTuple("all", AstronomyEventClass.ALL),
+						new AstronomyEventTuple("current", AstronomyEventClass.CURRENT),
+						new AstronomyEventTuple("daylength", AstronomyEventClass.DAYLENGTH),
 						new AstronomyEventTuple("meridian",
 								AstronomyEventClass.MERIDIAN),
 						new AstronomyEventTuple("phase",
