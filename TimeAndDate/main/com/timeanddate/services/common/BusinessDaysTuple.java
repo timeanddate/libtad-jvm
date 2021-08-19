@@ -4,7 +4,7 @@ import com.timeanddate.services.dataTypes.businessdays.*;
 
 /**
  *
- * @author Daniel Alvsåker <daniel@timeanddate.com>
+ * @author Daniel Alvsåker {@literal <daniel@timeanddate.com>}
  *
  */
 public class BusinessDaysTuple {

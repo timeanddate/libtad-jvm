@@ -20,7 +20,7 @@ import com.timeanddate.services.dataTypes.time.TimeChange;
 
 /**
  * 
- * @author Cato Auestad <cato@timeanddate.com>
+ * @author Cato Auestad {@literal <cato@timeanddate.com>}
  *
  */
 public class Location {

@@ -13,7 +13,7 @@ import com.timeanddate.services.dataTypes.time.TADTime;
 
 /**
  *
- * @author Daniel Alvsåker <daniel@timeanddate.com>
+ * @author Daniel Alvsåker {@literal <daniel@timeanddate.com>}
  *
  */
 public class BusinessHoliday {

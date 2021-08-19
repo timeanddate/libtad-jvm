@@ -14,7 +14,7 @@ import com.timeanddate.services.common.AuthenticationException;
 
 /**
  * 
- * @author Cato Auestad <cato@timeanddate.com>
+ * @author Cato Auestad {@literal <cato@timeanddate.com>}
  *
  */
 class Authentication {

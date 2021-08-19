@@ -23,7 +23,7 @@ import com.timeanddate.services.dataTypes.dialCode.Composition;
 
 /**
  * 
- * @author Cato Auestad <cato@timeanddate.com>
+ * @author Cato Auestad {@literal <cato@timeanddate.com>}
  *
  */
 public class DialCodes {

@@ -20,7 +20,7 @@ import org.xml.sax.SAXException;
 
 /**
  * 
- * @author Cato Auestad <cato@timeanddate.com>
+ * @author Cato Auestad {@literal <cato@timeanddate.com>}
  *
  */
 public class XmlUtils {

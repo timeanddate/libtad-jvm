@@ -26,7 +26,7 @@ import com.timeanddate.services.dataTypes.businessdays.BusinessDaysFilterType;
 
 /**
  *
- * @author Daniel Alvsåker <daniel@timeanddate.com>
+ * @author Daniel Alvsåker {@literal <daniel@timeanddate.com>}
  *
  */
 public class BusinessDurationService extends BaseService {
@@ -97,7 +97,7 @@ public class BusinessDurationService extends BaseService {
 	 * @return The calculated result and geographical information.
 	 * @throws ServerSideException
 	 * 		The server produced an error message.
-	 * @throws IllegalArgumentExeption
+	 * @throws IllegalArgumentException
 	 * 		A required argument was not as expected.
 	 */
 	public BusinessDuration getDuration(TADDateTime startDate, TADDateTime endDate, LocationId placeId)

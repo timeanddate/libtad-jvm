@@ -2,7 +2,7 @@ package com.timeanddate.services;
 
 /**
  * 
- * @author Cato Auestad <cato@timeanddate.com>
+ * @author Cato Auestad {@literal <cato@timeanddate.com>}
  *
  */
 final class Constants {

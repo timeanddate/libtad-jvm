@@ -12,7 +12,7 @@ import com.timeanddate.services.dataTypes.businessdays.BusinessDaysFilterType;
 
 /**
  * 
- * @author Cato Auestad <cato@timeanddate.com>
+ * @author Cato Auestad {@literal <cato@timeanddate.com>}
  *
  */
 public class StringUtils {

@@ -16,7 +16,7 @@ import com.timeanddate.services.dataTypes.places.Country;
 
 /**
  * 
- * @author Cato Auestad <cato@timeanddate.com>
+ * @author Cato Auestad {@literal <cato@timeanddate.com>}
  *
  */
 public class Holiday {

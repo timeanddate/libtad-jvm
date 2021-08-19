@@ -2,7 +2,7 @@ package com.timeanddate.services.common;
 
 /**
  * 
- * @author Cato Auestad <cato@timeanddate.com>
+ * @author Cato Auestad {@literal <cato@timeanddate.com>}
  *
  */
 public class MalformedXMLException extends Exception {

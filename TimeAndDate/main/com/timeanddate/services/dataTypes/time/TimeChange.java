@@ -5,7 +5,7 @@ import org.w3c.dom.Node;
 
 /**
  * 
- * @author Cato Auestad <cato@timeanddate.com>
+ * @author Cato Auestad {@literal <cato@timeanddate.com>}
  *
  */
 public class TimeChange {

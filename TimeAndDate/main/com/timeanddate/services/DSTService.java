@@ -31,7 +31,7 @@ import com.timeanddate.services.dataTypes.dst.DST;
 
 /**
  * 
- * @author Cato Auestad <cato@timeanddate.com>
+ * @author Cato Auestad {@literal <cato@timeanddate.com>}
  *
  */
 public class DSTService extends BaseService {

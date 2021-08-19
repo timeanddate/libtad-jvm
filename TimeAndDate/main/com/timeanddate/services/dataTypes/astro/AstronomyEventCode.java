@@ -2,7 +2,7 @@ package com.timeanddate.services.dataTypes.astro;
 
 /**
  * 
- * @author Cato Auestad <cato@timeanddate.com>
+ * @author Cato Auestad {@literal <cato@timeanddate.com>}
  *
  */
 public enum AstronomyEventCode {

@@ -10,7 +10,7 @@ import com.timeanddate.services.common.TimeSpan;
 
 /**
  * 
- * @author Cato Auestad <cato@timeanddate.com>
+ * @author Cato Auestad {@literal <cato@timeanddate.com>}
  *
  */
 public class AstronomyEvent implements Comparable<AstronomyEvent> {

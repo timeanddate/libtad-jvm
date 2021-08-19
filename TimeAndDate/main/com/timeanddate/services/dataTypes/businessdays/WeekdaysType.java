@@ -8,7 +8,7 @@ import com.timeanddate.services.common.XmlUtils;
 
 /**
  *
- * @author Daniel Alvsåker <daniel@timeanddate.com>
+ * @author Daniel Alvsåker {@literal <daniel@timeanddate.com>}
  *
  */
 public class WeekdaysType {

@@ -7,7 +7,7 @@ import com.timeanddate.services.common.MalformedXMLException;
 
 /**
  * 
- * @author Cato Auestad <cato@timeanddate.com>
+ * @author Cato Auestad {@literal <cato@timeanddate.com>}
  *
  */
 public class Composition {

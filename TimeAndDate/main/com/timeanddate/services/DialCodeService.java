@@ -17,7 +17,7 @@ import com.timeanddate.services.dataTypes.places.LocationId;
 
 /**
  * 
- * @author Cato Auestad <cato@timeanddate.com>
+ * @author Cato Auestad {@literal <cato@timeanddate.com>}
  *
  */
 public class DialCodeService extends BaseService {

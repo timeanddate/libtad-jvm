@@ -8,7 +8,7 @@ import com.timeanddate.services.common.InMemStore;
 
 /**
  * 
- * @author Cato Auestad <cato@timeanddate.com>
+ * @author Cato Auestad {@literal <cato@timeanddate.com>}
  *
  */
 public abstract class BaseService {

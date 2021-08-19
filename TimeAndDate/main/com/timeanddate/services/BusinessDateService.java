@@ -26,7 +26,7 @@ import com.timeanddate.services.dataTypes.businessdays.BusinessDaysFilterType;
 
 /**
  *
- * @author Daniel Alvsåker <daniel@timeanddate.com>
+ * @author Daniel Alvsåker {@literal <daniel@timeanddate.com>}
  *
  */
 public class BusinessDateService extends BaseService {
@@ -93,7 +93,7 @@ public class BusinessDateService extends BaseService {
 	 * @return The calculated result and geographical information.
 	 * @throws ServerSideException
 	 * 		The server produced an error message.
-	 * @throws IllegalArgumentExeption
+	 * @throws IllegalArgumentException
 	 * 		A required argument was not as expected.
 	 */
 	public BusinessDates addDays(TADDateTime startDate, List<Integer> days, LocationId placeId)
@@ -114,7 +114,7 @@ public class BusinessDateService extends BaseService {
 	 * @return The calculated result and geographical information.
 	 * @throws ServerSideException
 	 * 		The server produced an error message.
-	 * @throws IllegalArgumentExeption
+	 * @throws IllegalArgumentException
 	 * 		A required argument was not as expected.
 	 */
 	public BusinessDates addDays(TADDateTime startDate, int days, LocationId placeId)
@@ -138,7 +138,7 @@ public class BusinessDateService extends BaseService {
 	 * @return The calculated result and geographical information.
 	 * @throws ServerSideException
 	 * 		The server produced an error message.
-	 * @throws IllegalArgumentExeption
+	 * @throws IllegalArgumentException
 	 * 		A required argument was not as expected.
 	 */
 	public BusinessDates subtractDays(TADDateTime startDate, List<Integer> days, LocationId placeId)
@@ -159,7 +159,7 @@ public class BusinessDateService extends BaseService {
 	 * @return The calculated result and geographical information.
 	 * @throws ServerSideException
 	 * 		The server produced an error message.
-	 * @throws IllegalArgumentExeption
+	 * @throws IllegalArgumentException
 	 * 		A required argument was not as expected.
 	 */
 	public BusinessDates subtractDays(TADDateTime startDate, int days, LocationId placeId)
