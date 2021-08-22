@@ -8,6 +8,7 @@ import java.util.List;
 import com.timeanddate.services.dataTypes.astro.AstronomyEventClass;
 import com.timeanddate.services.dataTypes.astro.AstronomyEventCode;
 import com.timeanddate.services.dataTypes.holidays.HolidayType;
+import com.timeanddate.services.dataTypes.onthisday.OTDEventType;
 import com.timeanddate.services.dataTypes.businessdays.BusinessDaysFilterType;
 
 /**
@@ -97,6 +98,19 @@ public class StringUtils {
 				new HolidayTuple("christian", HolidayType.CHRISTIAN));
 
 		for (HolidayTuple t : holidays)
+			if (predicate.is(t.EnumRepresentation))
+				return t;
+
+		return null;
+	}
+
+	public static OTDEventTuple resolveOTDEventTypes(IPredicate<OTDEventType> predicate) {
+		List<OTDEventTuple> events = Arrays.<OTDEventTuple> asList(
+				new OTDEventTuple("events", OTDEventType.EVENTS),
+				new OTDEventTuple("births", OTDEventType.BIRTHS),
+				new OTDEventTuple("deaths", OTDEventType.DEATHS));
+
+		for (OTDEventTuple t: events)
 			if (predicate.is(t.EnumRepresentation))
 				return t;
 
