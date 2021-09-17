@@ -51,7 +51,7 @@ public class OnThisDayService extends BaseService {
 	 * @throws AuthenticationException
 	 * 			  Encryption of the authentication failed
 	 */
-	private OnThisDayService(String accessKey, String secretKey)
+	public OnThisDayService(String accessKey, String secretKey)
 			throws AuthenticationException {
 		super(accessKey, secretKey, "onthisday");
 	}
