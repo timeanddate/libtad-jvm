@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>TimeAndDate</groupId>
   <artifactId>TimeAndDate</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0.0</version>
   <packaging>jar</packaging>
   <dependencies>
     <dependency>
@@ -67,4 +67,11 @@
         </plugins>
     </pluginManagement>
   </build>
+  <distributionManagement>
+    <repository>
+      <id>github</id>
+      <name>Github timeanddate Apache Maven Packages</name>
+      <url>https://maven.pkg.github.com/timeanddate/libtad-jvm</url>
+    </repository>
+  </distributionManagement>
 </project>
